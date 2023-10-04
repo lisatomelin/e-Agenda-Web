@@ -29,8 +29,6 @@
             <tr>
               <th>Nome</th>
               <th>Telefone</th>
-              <th>Cargo</th>
-              <th>Empresa</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -38,12 +36,11 @@
             <tr *ngFor="let contato of contatos">
               <td>{{contato.nome}}</td>
               <td>{{contato.telefone}}</td>
-              <td>{{contato.cargo}}</td>
-              <td>{{contato.empresa}}</td>
-
+              
               <td class="d-grid d-md-block">
                 <button
                   data-cy="btnEditar"
+                  routerLink="/contatos/editar/{{contato.id}}"
                   type="button"
                   class="btn btn-sm btn-primary me-0 me-md-1 mb-1 mb-md-auto"
                 >

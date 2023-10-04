@@ -11,10 +11,12 @@ import { CoreModule } from './core/core.module';
 import { ContatosModule } from './views/contatos/contatos.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http";
+import { EditarContatoComponent } from './views/contatos/editar-contato/editar-contato.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,7 @@ import { HttpClientModule } from "@angular/common/http";
     CoreModule,
     DashboardModule,
     ContatosModule,
+  
     
   ],
   providers: [],
