@@ -7,6 +7,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { DashboardModule } from './views/dashboard/dashboard.module';
+import { CoreModule } from './core/core.module';
+import { ContatosModule } from './views/contatos/contatos.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { DashboardModule } from './views/dashboard/dashboard.module';
       preventDuplicates: true,
     }),
 
+    HttpClientModule,
+    CoreModule,
     DashboardModule,
+    ContatosModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
