@@ -5,6 +5,7 @@ import { Observable } from "rxjs/internal/Observable";
 import { FormsContatoViewModel } from "../models/forms-contato.view-model";
 import { ListarContatosViewModel } from "../models/listar-contatos.view-model";
 import { map } from "rxjs";
+import { VisualizarContatoViewModel } from "../models/visualizar-contato.view-model";
 
 @Injectable()
 export class ContatosService {
@@ -24,6 +25,10 @@ export class ContatosService {
       .pipe(map((res) => res.dados));
   }
 
+  public excluir(id: string): Observable<any> {
+    return this.http.delete<any>(this.endpoint+id, this.obterHeadersAutorizacao());
+  }
+
   public selecionarTodos(): Observable<ListarContatosViewModel[]> {
     return this.http.get<any>(this.endpoint, this.obterHeadersAutorizacao())
     .pipe(map((res) => res.dados));
@@ -34,6 +39,10 @@ export class ContatosService {
     .pipe(map((res) => res.dados));
   }
 
+  public selecionarContatoCompletoPorId(id: string): Observable<VisualizarContatoViewModel>{
+    return this.http.get<any>(this.endpoint+ 'visualizacao-completa' + id, this.obterHeadersAutorizacao())
+    .pipe(map((res) => res.dados));
+  }
   
 
   private obterHeadersAutorizacao(){
