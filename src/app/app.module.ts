@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { DashboardModule } from './views/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { ToastrModule } from 'ngx-toastr';
       positionClass:"toast-top-center",
       preventDuplicates: true,
     }),
+
+    DashboardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
