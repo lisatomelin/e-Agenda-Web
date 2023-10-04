@@ -40,7 +40,7 @@ export class ContatosService {
   }
 
   public selecionarContatoCompletoPorId(id: string): Observable<VisualizarContatoViewModel>{
-    return this.http.get<any>(this.endpoint+ 'visualizacao-completa' + id, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint + 'visualizacao-completa' + id, this.obterHeadersAutorizacao())
     .pipe(map((res) => res.dados));
   }
   
