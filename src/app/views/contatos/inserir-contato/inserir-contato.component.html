@@ -10,6 +10,7 @@
           <label class="form-label">Nome:</label>
           <input
             formControlName="nome"
+            [ngClass]="('nome') ? 'is-invalid' : ''"
             class="form-control"
             type="text"
             placeholder="Digite o nome do contato"
@@ -19,6 +20,7 @@
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Email:</label>
           <input formControlName="email"
+          [ngClass]="('email') ? 'is-invalid' : ''"
           
 
             class="form-control"
@@ -30,6 +32,7 @@
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Telefone:</label>
           <input formControlName="telefone"
+          [ngClass]="('telefone') ? 'is-invalid' : ''"
             class="form-control"
             type="text"
             placeholder="Digite o telefone do contato"
@@ -39,6 +42,7 @@
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Cargo:</label>
           <input formControlName="cargo"
+          [ngClass]="('cargo') ? 'is-invalid' : ''"
  
             class="form-control"
             type="text"
@@ -50,6 +54,7 @@
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Empresa:</label>
           <input formControlName="empresa"
+          [ngClass]="('empresa') ? 'is-invalid' : ''"
   
             class="form-control"
             type="text"

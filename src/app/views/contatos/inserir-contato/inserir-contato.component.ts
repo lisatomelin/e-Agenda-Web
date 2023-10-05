@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContatosService } from '../services/contatos.service';
 import { Router, RouterModule } from '@angular/router';
 import { FormsContatoViewModel } from '../models/forms-contato.view-model';
@@ -21,12 +21,16 @@ export class InserirContatoComponent implements OnInit {
   
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      nome: new FormControl(''),
-      email:new FormControl(''),
-      telefone: new FormControl (''),
-      cargo: new FormControl (''),
-      empresa: new FormControl (''),
+      nome: new FormControl('', [Validators.required]),
+      email:new FormControl('', [Validators.required, Validators.email]),
+      telefone: new FormControl ('', [Validators.required]),
+      cargo: new FormControl ('', [Validators.required]),
+      empresa: new FormControl ('', [Validators.required]),
     });
+  }
+
+  campoEstaInvalido(nome: string) {
+    return this.form.get(nome)?.touched && this.form.get(nome)?.invalid;
   }
 
   gravar(){
