@@ -5,6 +5,7 @@ import { InserirContatoComponent } from './views/contatos/inserir-contato/inseri
 import { ListarContatosComponent } from './views/contatos/listar-contatos/listar-contatos.component';
 import { EditarContatoComponent } from './views/contatos/editar-contato/editar-contato.component';
 import { ExcluirContatoComponent } from './views/contatos/excluir-contato/excluir-contato.component';
+import { InserirCompromissoComponent } from './views/compromissos/inserir-compromisso/inserir-compromisso.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,11 @@ const routes: Routes = [
     path: 'contatos/listar',
     component: ListarContatosComponent,
   },
+
+  {
+    path: 'compromissos/inserir',
+    component: InserirCompromissoComponent,
+  }, 
 ];
 
 @NgModule({

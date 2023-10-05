@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VisualizarContatoViewModel } from '../models/visualizar-contato.view-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContatosService } from '../services/contatos.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-excluir-contato',
@@ -15,6 +16,7 @@ export class ExcluirContatoComponent implements OnInit{
   constructor( 
     private contatoService: ContatosService,
     private route: ActivatedRoute,
+    private toastrService: ToastrService,
     private router: Router) {
 
       this.contatoVM = new VisualizarContatoViewModel('','', '', '', '','');
@@ -33,6 +35,7 @@ export class ExcluirContatoComponent implements OnInit{
   gravar(){
     this.contatoService.excluir(this.idSelecionado!)
     .subscribe(res=> {
+      this.toastrService.success(`O contato "${res.nome}" foi excluído com sucesso!`)
       this.router.navigate(['/contatos','listar'])
     });
 

@@ -10,56 +10,66 @@
           <label class="form-label">Nome:</label>
           <input
             formControlName="nome"
-            [ngClass]="('nome') ? 'is-invalid' : ''"
+            [ngClass]="nome?.touched && nome?.invalid ? 'is-invalid' : ''"
             class="form-control"
             type="text"
-            placeholder="Digite o nome do contato"
-          />
+            placeholder="Digite o nome do contato"/>
+          <div class = "invalid-tooltip">
+            <span *ngIf="nome?.errors?.['required']">O nome precisa ser preenchido.</span>
+          </div>
         </div>
 
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Email:</label>
-          <input formControlName="email"
-          [ngClass]="('email') ? 'is-invalid' : ''"
-          
-
+          <input 
+            formControlName="email"
+            [ngClass]="email?.touched && email?.invalid ? 'is-invalid' : ''"   
             class="form-control"
             type="text"
-            placeholder="Digite o email do contato"
-          />
+            placeholder="Digite o email do contato"/>
+          <div class = "invalid-tooltip">
+            <span *ngIf="email?.errors?.['required']">O e-mail precisa ser preenchido.</span>
+            <span *ngIf="email?.errors?.['email']">O e-mail precisa ser preenchido.</span>
+          </div>
         </div>
 
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Telefone:</label>
-          <input formControlName="telefone"
-          [ngClass]="('telefone') ? 'is-invalid' : ''"
+          <input 
+            formControlName="telefone"
+            [ngClass]="telefone?.touched && telefone?.invalid ? 'is-invalid' : ''"
             class="form-control"
             type="text"
-            placeholder="Digite o telefone do contato"
-          />
+            placeholder="Digite o telefone do contato"/>
+          <div class = "invalid-tooltip">
+            <span *ngIf="telefone?.errors?.['required']">O telefone precisa ser preenchido.</span>
+          </div>
         </div>
 
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Cargo:</label>
-          <input formControlName="cargo"
-          [ngClass]="('cargo') ? 'is-invalid' : ''"
- 
+          <input 
+            formControlName="cargo"
+            [ngClass]="cargo?.touched && cargo?.invalid ? 'is-invalid' : ''"
             class="form-control"
             type="text"
-            placeholder="Digite o cargo do contato"
-            
-          />
+            placeholder="Digite o cargo do contato"/>
+          <div class = "invalid-tooltip">
+            <span *ngIf="cargo?.errors?.['required']">O cargo precisa ser preenchido.</span>
+          </div>
         </div>
 
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Empresa:</label>
-          <input formControlName="empresa"
-          [ngClass]="('empresa') ? 'is-invalid' : ''"
-  
+          <input 
+            formControlName="empresa"
+            [ngClass]="empresa?.touched && empresa?.invalid ? 'is-invalid' : ''"
             class="form-control"
             type="text"
-            placeholder="Digite a empresa do contato"
-          />
+            placeholder="Digite a empresa do contato"/>
+          <div class = "invalid-tooltip">
+            <span *ngIf="empresa?.errors?.['required']">A empresa precisa ser preenchida.</span>
+          </div>
         </div>
 
         <div class="card-footer g-grid d-flex gap-1 mt-5">
@@ -73,8 +83,7 @@
           <button
             routerLink="/contatos/listar"
             type="button"
-            class="btn btn-outline-primary px-5"
-          >
+            class="btn btn-outline-primary px-5">
             <i class="pi pi-arrow-left me-2"></i>
             Voltar
           </button>

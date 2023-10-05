@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsContatoViewModel } from '../models/forms-contato.view-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContatosService } from '../services/contatos.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editar-contato',
@@ -18,16 +19,17 @@ export class EditarContatoComponent {
     private formBuilder: FormBuilder, 
     private contatoService: ContatosService,
     private router: Router,
+    private toastrService: ToastrService,
     private route: ActivatedRoute) {}
   
   
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      nome: new FormControl(''),
-      email:new FormControl(''),
-      telefone: new FormControl (''),
-      cargo: new FormControl (''),
-      empresa: new FormControl (''),
+      nome: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      telefone: new FormControl ('', [Validators.required]),
+      cargo: new FormControl ('', [Validators.required]),
+      empresa: new FormControl ('', [Validators.required]),
     });
 
     this.idSelecionado = this.route.snapshot.paramMap.get('id');
@@ -41,14 +43,39 @@ export class EditarContatoComponent {
     });
 
         
-    
+  }
+
+  get nome(){
+    return this.form.get('nome');
+  }
+
+  get email() {
+    return this.form.get('email');
+  }
+
+  get telefone() {
+    return this.form.get('telefone');
+  }
+
+  get cargo() {
+    return this.form.get('cargo');
+  }
+
+  get empresa() {
+    return this.form.get('empresa');
   }
 
   gravar(){
+    if(this.form.invalid){
+      this.toastrService.warning('Verifique o preenchimento do formulário.', 'Aviso!');
+      
+      this.form.markAllAsTouched();
+      return;
+    }
     this.contatoVW = this.form.value;
 
     this.contatoService.editar(this.idSelecionado!,this.contatoVW).subscribe(res=> {
-      console.log(res);
+      this.toastrService.success(`O contato "${res.nome}" foi editado com sucesso!`)
 
       this.router.navigate(['/contatos/listar']);
     });
