@@ -4,6 +4,7 @@ import { ContatosService } from '../services/contatos.service';
 import { Router} from '@angular/router';
 import { FormsContatoViewModel } from '../models/forms-contato.view-model';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-inserir-contato',
@@ -62,11 +63,33 @@ export class InserirContatoComponent implements OnInit {
 
     this.contatoVW = this.form.value;
 
-    this.contatoService.inserir(this.contatoVW).subscribe(res=> {
-      this.toastrService.success(`O contato "${res.nome}" foi inserido com sucesso!`)
-
-      this.router.navigate(['/contatos/listar']);
+    
+    this.contatoService.inserir(this.contatoVW).subscribe({
+      next: this.processarSucesso,
+      error: (err:Error) => this.processarFalha(err),
+    
     });
+         
   }
 
+  processarSucesso(res: FormsContatoViewModel){
+
+    this.toastrService.success(
+     `O contato "${res.nome}" foi inserido com sucesso!`,
+    'Sucesso')
+
+    this.router.navigate(['/contatos/listar']);
+
+
+  }
+
+  processarFalha(error: Error){
+    this.toastrService.error(
+    error.message, 'Error');
+         
+      
+    
+  }
+
+  
 }

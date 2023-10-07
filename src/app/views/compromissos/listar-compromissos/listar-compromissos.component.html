@@ -10,7 +10,7 @@
 
       <!-- Barra de Ações -->
       <div class="d-grid d-md-flex gap-1 mt-5">
-        <!--<a
+        <a
           [routerLink]="['/compromissos/inserir']"
           role="button"
           class="btn btn-primary me-md-1"
@@ -18,7 +18,7 @@
           <i class="pi bi-plus-circle me-2"></i>
           Novo Compromisso
         </a>
-      </div>-->
+      </div>
 
       <!-- Listagem de Registros -->
       <div class="mt-3">
@@ -36,17 +36,17 @@
             </tr>
           </thead>
           <tbody class="text-center">
-            <tr>
-              <td>Assunto</td>
-              <td>Data</td>
-              <td>Horário de Início</td>
-              <td>Horário de Término</td>
-              <td>Nome do Contato (opcional)</td>
+            <tr *ngFor="let compromisso of compromissos">
+              <td>{{compromisso.assunto}}</td>
+              <td>{{compromisso.data}}</td>
+              <td>{{compromisso.horaInicio}}</td>
+              <td>{{compromisso.horaTermino}}</td>
+              <td>{{compromisso.contato}}</td>
 
               <td class="d-grid d-md-block">
                 <button
                   data-cy="btnEditar"
-                  routerLink="/compromissos/editar/"
+                  routerLink="/compromissos/editar/{{compromisso.id}}"
                   type="button"
                   class="btn btn-sm btn-primary me-0 me-md-1 mb-1 mb-md-auto"
                 >
@@ -54,7 +54,7 @@
                 </button>
                 <button
                   data-cy="btnExcluir"
-                  routerLink="/compromissos/excluir/"
+                  routerLink="/compromissos/excluir/{{compromisso.id}}"
                   type="button"
                   class="btn btn-sm btn-outline-danger me-0 me-md-1 mb-1 mb-md-auto"
                 >

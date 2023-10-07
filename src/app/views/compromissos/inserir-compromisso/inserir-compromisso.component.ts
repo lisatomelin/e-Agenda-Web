@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormsCompromissosViewModel } from '../models/forms-compromisso.view-model';
 import { CompromissosService } from '../services/compromissos.service';
+import { ListarContatosViewModel } from '../../contatos/models/listar-contatos.view-model';
+import { ContatosService } from '../../contatos/services/contatos.service';
 
 @Component({
   selector: 'app-inserir-compromisso',
@@ -14,26 +16,33 @@ import { CompromissosService } from '../services/compromissos.service';
 export class InserirCompromissoComponent {
   form!: FormGroup;
   compromissoVW!: FormsCompromissosViewModel;
+  contatos: ListarContatosViewModel [] = [];
 
   constructor(private formBuilder: FormBuilder, 
     private compromissosService: CompromissosService,
     private toastrService: ToastrService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private contatosService: ContatosService
     ) {}
   
   
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       assunto: new FormControl('', [Validators.required]),
-      tipoLocal: new FormControl('', [Validators.required]),
+      tipoLocal: new FormControl(0),
       link: new FormControl (''),
-      local: new FormControl ('', [Validators.required]),
-      data: new FormControl (new Date, [Validators.required]),
-      horaInicio: new FormControl ('08:00', [Validators.required]),
+      local: new FormControl (''),
+      data: new FormControl (new Date),
+      horaInicio: new FormControl ('08:00'),
       horaTermino: new FormControl ('09:00'),
-      contatoId: new FormControl ('', [Validators.required]),
+      contatoId: new FormControl (''),
     });
+
+    this.contatosService.selecionarTodos().subscribe(res => {
+      this.contatos = res;})
+
+   
   }
 
   get assunto(){
@@ -57,7 +66,7 @@ export class InserirCompromissoComponent {
   }
 
   get ContatoId() {
-    return this.form.get('conatoId');
+    return this.form.get('contatoId');
   }
 
 
@@ -72,11 +81,35 @@ export class InserirCompromissoComponent {
 
     this.compromissoVW = this.form.value;
 
-    this.compromissosService.inserir(this.compromissoVW).subscribe(res=> {
-      this.toastrService.success(`O compromisso "${res.assunto}" foi inserido com sucesso!`)
+    this.compromissosService.inserir(this.compromissoVW).subscribe({
+      next: this.processarSucesso,
+      error: (err:Error) => this.processarFalha(err),
 
-      this.router.navigate(['/compromissos/listar']);
     });
+
+     
+    
   }
+
+
+  processarSucesso(res: FormsCompromissosViewModel){
+
+    this.toastrService.success(
+     `O contato "${res.assunto}" foi inserido com sucesso!`,
+    'Sucesso')
+
+    this.router.navigate(['/compromissos/listar']);
+
+
+  }
+
+  processarFalha(error: Error){
+    this.toastrService.error(
+    error.message, 'Error');
+         
+      
+    
+  }
+
 
 }

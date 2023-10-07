@@ -9,6 +9,7 @@
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Assunto:</label>
           <input
+            formControlName="assunto"
             class="form-control"
             type="text"
             placeholder="Digite o assunto do compromisso"
@@ -19,10 +20,10 @@
           <label class="form-label">Tipo de Compromisso:</label>
 
           <div class="d-flex align-items-center gap-2">
-            <input name="tipoLocal" type="radio" [value]="0" />
+            <input name="tipoLocal" formControlName="tipoLocal" type="radio" [value]="0" />
             Remoto
 
-            <input name="tipoLocal" type="radio" [value]="1" />
+            <input name="tipoLocal" formControlName="tipoLocal" type="radio" [value]="1" />
             Presencial
           </div>
         </div>
@@ -30,6 +31,7 @@
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Link:</label>
           <input
+          formControlName="link"
             class="form-control"
             type="text"
             placeholder="Digite o link do compromisso"
@@ -39,6 +41,7 @@
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Local:</label>
           <input
+           formControlName="local"
             class="form-control"
             type="text"
             placeholder="Digite o local do compromisso"
@@ -47,13 +50,14 @@
 
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Data:</label>
-          <input class="form-control" type="date" />
+          <input formControlName="data" class="form-control" type="date" />
         </div>
 
         <div class="form-group mb-3 position-relative row">
           <div class="col-6">
             <label class="form-label">Hora de Início:</label>
             <input
+             formControlName="horaInicio"
               class="form-control"
               type="time"
               placeholder="Digite o telefone do contato"
@@ -63,6 +67,7 @@
           <div class="col">
             <label class="form-label">Hora de Término:</label>
             <input
+             formControlName="horaTermino"
               class="form-control"
               type="time"
               placeholder="Digite o telefone do contato"
@@ -79,7 +84,8 @@
 
         <div class="card-footer g-grid d-flex gap-1 mt-5">
           <button
-            data-cy="btnGravar"
+            ddata-cy="btnGravar"
+            (click)="gravar()"
             type="button"
             class="btn btn-primary px-5"
           >

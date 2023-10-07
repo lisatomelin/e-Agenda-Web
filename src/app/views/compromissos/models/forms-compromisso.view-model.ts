@@ -2,23 +2,23 @@ import TipoLocal from "./tipolocal.Enum";
 
 export class FormsCompromissosViewModel{
   assunto: string;
-  tipoLocal: TipoLocal;
+  tipoLocal: number;
   link: string;
   local: string;
-  data: string;
+  data: Date;
   horaInicio: string;
   horaTermino: string;
-  contatoId: string;
+  contatoId?: string;
 
   constructor(
   assunto: string,
-  tipoLocal: TipoLocal,
+  tipoLocal: number,
   link: string,
   local: string,
-  data: string,
+  data: Date,
   horaInicio: string,
   horaTermino: string,
-  contatoId: string
+  contatoId?: string
   ) {
     this.assunto = assunto;
     this.tipoLocal = tipoLocal;

@@ -19,48 +19,48 @@
         <dt class="col-md-4">
           <label class="control-label">Assunto:</label>
         </dt>
-        <dd class="col-md-8">Assunto</dd>
+        <dd class="col-md-8">{{compromissoVM.assunto}}</dd>
 
         <dt class="col-md-4">
           <label class="control-label">Tipo de Compromisso:</label>
         </dt>
-        <dd class="col-md-8">Remoto</dd>
+        <dd class="col-md-8">{{compromissoVM.tipoLocal}}</dd>
 
         <dt class="col-md-4">
           <label class="control-label">Link:</label>
         </dt>
-        <dd class="col-md-8">www.academiadoprogramador.net</dd>
+        <dd class="col-md-8">{{compromissoVM.link}}</dd>
 
         <dt class="col-md-4">
           <label class="control-label">Local:</label>
         </dt>
-        <dd class="col-md-8">Centro</dd>
+        <dd class="col-md-8">{{compromissoVM.local}}</dd>
 
         <dt class="col-md-4">
           <label class="control-label">Data:</label>
         </dt>
-        <dd class="col-md-8">04/10/2023</dd>
+        <dd class="col-md-8">{{compromissoVM.data}}</dd>
 
         <dt class="col-md-4">
           <label class="control-label">Horário de Início:</label>
         </dt>
-        <dd class="col-md-8">09:00</dd>
+        <dd class="col-md-8">{{compromissoVM.horaInicio}}</dd>
 
         <dt class="col-md-4">
           <label class="control-label">Horário de Término:</label>
         </dt>
-        <dd class="col-md-8">12:00</dd>
+        <dd class="col-md-8">{{compromissoVM.horaTermino}}</dd>
 
         <dt class="col-md-4">
           <label class="control-label">Contato (opcional):</label>
         </dt>
-        <dd class="col-md-8">Nome do Contato</dd>
+        <dd class="col-md-8">{{compromissoVM.contato}}</dd>
       </dl>
 
       <div class="card-footer g-grid d-flex gap-1 mt-5">
         <button
-          data-cy="btnExcluirTarefa"
-          type="button"
+          data-cy="btnExcluirCompromisso"
+          (click) = "gravar()"
           class="btn btn-danger px-5"
         >
           <i class="bi bi-trash-fill me-2"></i>
