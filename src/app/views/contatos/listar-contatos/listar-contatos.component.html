@@ -21,43 +21,11 @@
       </div>
 
       <!-- Listagem de Registros -->
-      <div class="mt-3">
-        <table
-          class="table table-light table-striped table-hover table-borderless"
-        >
-          <thead class="thead-dark text-center">
-            <tr>
-              <th>Nome</th>
-              <th>Telefone</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody class="text-center">
-            <tr *ngFor="let contato of contatos">
-              <td>{{contato.nome}}</td>
-              <td>{{contato.telefone}}</td>
-              
-              <td class="d-grid d-md-block">
-                <button
-                  data-cy="btnEditar"
-                  routerLink="/contatos/editar/{{contato.id}}"
-                  type="button"
-                  class="btn btn-sm btn-primary me-0 me-md-1 mb-1 mb-md-auto"
-                >
-                  <i class="bi bi-pencil"></i>
-                </button>
-                <button
-                  data-cy="btnExcluir"
-                  routerLink="/contatos/excluir/{{contato.id}}"
-                  type="button"
-                  class="btn btn-sm btn-outline-danger me-0 me-md-1 mb-1 mb-md-auto"
-                >
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="row mt-3 g-2">
+        <div class="col-12 col-md-6 col-lg-4" *ngFor="let contato of contatos">
+          <app-card-contato [contato]="contato"></app-card-contato>
+        </div>
+       
       </div>
     </div>
   </div>
