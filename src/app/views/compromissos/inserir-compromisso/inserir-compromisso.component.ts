@@ -82,7 +82,7 @@ export class InserirCompromissoComponent {
     this.compromissoVW = this.form.value;
 
     this.compromissosService.inserir(this.compromissoVW).subscribe({
-      next: this.processarSucesso,
+      next: (compromisso: FormsCompromissosViewModel) => this.processarSucesso(compromisso),
       error: (err:Error) => this.processarFalha(err),
 
     });
@@ -92,10 +92,10 @@ export class InserirCompromissoComponent {
   }
 
 
-  processarSucesso(res: FormsCompromissosViewModel){
+  processarSucesso(compromisso: FormsCompromissosViewModel){
 
     this.toastrService.success(
-     `O contato "${res.assunto}" foi inserido com sucesso!`,
+     `O contato "${compromisso.assunto}" foi inserido com sucesso!`,
     'Sucesso')
 
     this.router.navigate(['/compromissos/listar']);

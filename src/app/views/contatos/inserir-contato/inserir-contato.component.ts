@@ -65,17 +65,17 @@ export class InserirContatoComponent implements OnInit {
 
     
     this.contatoService.inserir(this.contatoVW).subscribe({
-      next: this.processarSucesso,
+      next: (contato: FormsContatoViewModel) => this.processarSucesso(contato),
       error: (err:Error) => this.processarFalha(err),
     
     });
          
   }
 
-  processarSucesso(res: FormsContatoViewModel){
+  processarSucesso(contato: FormsContatoViewModel){
 
     this.toastrService.success(
-     `O contato "${res.nome}" foi inserido com sucesso!`,
+     `O contato "${contato.nome}" foi inserido com sucesso!`,
     'Sucesso')
 
     this.router.navigate(['/contatos/listar']);
