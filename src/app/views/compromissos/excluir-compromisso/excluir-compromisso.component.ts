@@ -3,6 +3,8 @@ import { VisualizarCompromissosViewModel } from '../models/visualizar-compromiss
 import { CompromissosService } from '../services/compromissos.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ContatosService } from '../../contatos/services/contatos.service';
+import { ListarContatosViewModel } from '../../contatos/models/listar-contatos.view-model';
 
 @Component({
   selector: 'app-excluir-compromisso',
@@ -12,12 +14,14 @@ import { ToastrService } from 'ngx-toastr';
 export class ExcluirCompromissoComponent {
   compromissoVM: VisualizarCompromissosViewModel;
   idSelecionado: string | null = null;
+  contatos: ListarContatosViewModel [] = [];
 
   constructor( 
     private compromissosService: CompromissosService,
     private route: ActivatedRoute,
     private toastrService: ToastrService,
-    private router: Router) {
+    private router: Router,
+    private contatosService: ContatosService) {
 
       this.compromissoVM = new VisualizarCompromissosViewModel('','', '', 0, '',new Date(), '', '', '');
     }
@@ -30,6 +34,10 @@ export class ExcluirCompromissoComponent {
       this.compromissosService.selecionarContatoCompletoPorId(this.idSelecionado).subscribe((res) => {
         this.compromissoVM = res;
     });
+
+    this.contatosService.selecionarTodos().subscribe(res => {
+      this.contatos = res;})
+
   }
 
   gravar(){

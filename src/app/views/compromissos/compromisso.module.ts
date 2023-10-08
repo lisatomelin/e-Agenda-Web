@@ -7,6 +7,7 @@ import { ListarCompromissosComponent } from "./listar-compromissos/listar-compro
 import { EditarCompromissoComponent } from "./editar-compromisso/editar-compromisso.component";
 import { ExcluirCompromissoComponent } from "./excluir-compromisso/excluir-compromisso.component";
 import { CompromissosService } from "./services/compromissos.service";
+import { CardCompromissoComponent } from './card-compromisso/card-compromisso.component';
 
 @NgModule({
 
@@ -15,6 +16,7 @@ import { CompromissosService } from "./services/compromissos.service";
     ListarCompromissosComponent,
     EditarCompromissoComponent,
     ExcluirCompromissoComponent,
+    CardCompromissoComponent,
   ],
   imports: 
   [CommonModule,ReactiveFormsModule, RouterModule],    

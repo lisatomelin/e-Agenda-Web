@@ -36,7 +36,7 @@ export class InserirCompromissoComponent {
       data: new FormControl (new Date),
       horaInicio: new FormControl ('08:00'),
       horaTermino: new FormControl ('09:00'),
-      contatoId: new FormControl (''),
+      contato: new FormControl (''),
     });
 
     this.contatosService.selecionarTodos().subscribe(res => {
@@ -65,8 +65,8 @@ export class InserirCompromissoComponent {
     return this.form.get('horaInicio');
   }
 
-  get ContatoId() {
-    return this.form.get('contatoId');
+  get Contato() {
+    return this.form.get('contato');
   }
 
 

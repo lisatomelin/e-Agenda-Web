@@ -33,7 +33,7 @@ export class EditarCompromissoComponent {
         data: new FormControl (new Date),
         horaInicio: new FormControl ('08:00'),
         horaTermino: new FormControl ('09:00'),
-        contatoId: new FormControl (''),
+        contato: new FormControl (''),
       });
 
 
@@ -69,7 +69,7 @@ export class EditarCompromissoComponent {
     }
   
     get ContatoId() {
-      return this.form.get('conatoId');
+      return this.form.get('contato');
     }
   
   
