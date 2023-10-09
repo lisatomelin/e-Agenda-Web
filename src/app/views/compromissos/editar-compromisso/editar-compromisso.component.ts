@@ -4,6 +4,7 @@ import { FormsCompromissosViewModel } from '../models/forms-compromisso.view-mod
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CompromissosService } from '../services/compromissos.service';
+import { ListarContatosViewModel } from '../../contatos/models/listar-contatos.view-model';
 
 @Component({
   selector: 'app-editar-compromisso',
@@ -15,6 +16,7 @@ export class EditarCompromissoComponent {
     form!: FormGroup;
     compromissoVW!: FormsCompromissosViewModel;
     idSelecionado: string | null = null;
+    contatos: ListarContatosViewModel [] = [];
   
     constructor(private formBuilder: FormBuilder, 
       private compromissosService: CompromissosService,
@@ -68,7 +70,7 @@ export class EditarCompromissoComponent {
       return this.form.get('horaInicio');
     }
   
-    get ContatoId() {
+    get Contato() {
       return this.form.get('contato');
     }
   

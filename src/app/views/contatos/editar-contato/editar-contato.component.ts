@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EditarContatoComponent {
   form!: FormGroup;
   contatoVW!: FormsContatoViewModel;
-  idSelecionado: string | null = null;
+  
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -32,18 +32,17 @@ export class EditarContatoComponent {
       empresa: new FormControl ('', [Validators.required]),
     });
 
-    this.idSelecionado = this.route.snapshot.paramMap.get('id');
 
-    if(!this.idSelecionado) return;
+      this.contatoVW = this.route.snapshot.data['contato'];
 
-    this.contatoService.selecionarPorId(this.idSelecionado).subscribe((res) => {
+    
 
-      this.form.patchValue(res);
+      this.form.patchValue(this.contatoVW);
 
-    });
+    }
 
         
-  }
+  
 
   get nome(){
     return this.form.get('nome');
@@ -67,17 +66,42 @@ export class EditarContatoComponent {
 
   gravar(){
     if(this.form.invalid){
-      this.toastrService.warning('Verifique o preenchimento do formulário.', 'Aviso!');
-      
-      this.form.markAllAsTouched();
+      for(let erro of this.form.validate()){
+        this.toastrService.warning(erro);
+      }
+
       return;
+      
     }
     this.contatoVW = this.form.value;
 
-    this.contatoService.editar(this.idSelecionado!,this.contatoVW).subscribe(res=> {
-      this.toastrService.success(`O contato "${res.nome}" foi editado com sucesso!`)
+    const id = this.route.snapshot.paramMap.get('id');
 
-      this.router.navigate(['/contatos/listar']);
+    if (!id) return;
+
+    this.contatoService.editar(id,this.contatoVW).subscribe({  
+      next: (contato) => this.processarSucesso(contato),
+      error: (erro) => this.processarFalha(erro),   
+
+      
     });
+  }
+
+  processarSucesso(contato: FormsContatoViewModel){
+
+    this.toastrService.success(
+     `O contato "${contato.nome}" foi editado com sucesso!`,
+    'Sucesso')
+
+    this.router.navigate(['/contatos/listar']);
+
+
+  }
+
+  processarFalha(error: Error){
+    this.toastrService.error(
+    error.message, 'Error');
+         
+      
   }
 }

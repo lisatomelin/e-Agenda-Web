@@ -5,7 +5,7 @@
         <h1 class="fw-bold text-primary">Editar Compromisso</h1>
       </div>
 
-      <form class="mt-4">
+      <form [formGroup]="form" class="mt-4">
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Assunto:</label>
           <input
@@ -77,9 +77,11 @@
 
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Contato:</label>
-          <select class="form-select w-50" name="categoriaId" id="">
-            <option>Nome do Contato</option>
-          </select>
+          <select class="form-select w-50" name="categoriaId" id="" formControlName="contato">
+            <option *ngFor="let contato of contatos" [value]="contato.id">{{contato.nome}}</option>
+        </select>          
+           
+         
         </div>
 
         <div class="card-footer g-grid d-flex gap-1 mt-5">

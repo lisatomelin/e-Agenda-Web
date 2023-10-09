@@ -55,29 +55,9 @@ export class InserirContatoComponent implements OnInit {
 
   gravar(){
     if(this.form.invalid){
-      const erros: string[] = [];
-
-      for (let campo of Object.keys(this.form.controls)){
-        const controle = this.form.get(campo);
-
-        if (!controle?.errors) continue;
-
-        controle.markAllAsTouched();
-
-        for (let erro of Object.keys(controle.errors)) {
-          switch (erro) {
-            case 'required':
-              erros.push(`O campo "${campo}" é obrigatório!`);
-              break;
-
-              case 'emnail':
-                erros.push(`O campo "${campo}" deve seguir um formato válido!`);
-                break;
-          }
-        }
-      }
-
-      for (let erro of erros) this.toastrService.warning(erro);
+      for (let erro of this.form.validate()){
+        this.toastrService.warning(erro);
+      } 
 
       return;
          
