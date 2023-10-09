@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ContatosService } from '../services/contatos.service';
 import { ListarContatosViewModel } from '../models/listar-contatos.view-model';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-listar-contatos',
@@ -11,12 +13,32 @@ import { ActivatedRoute } from '@angular/router';
 export class ListarContatosComponent implements OnInit {
   contatos: ListarContatosViewModel[] = [];
 
-  constructor(private contatoService: ContatosService, private route: ActivatedRoute ){}
+  constructor(private contatoService: ContatosService, private route: ActivatedRoute, private toastrService: ToastrService)
+  
+  {}
   
   ngOnInit(): void {
-    
-  this.contatos= this.route.snapshot.data['contatos'];
-    
+      
+  this.route.data.pipe(map(dados => dados ['contatos'])).subscribe({
+    next: (contatos) => this.processarSucesso(contatos),
+    error: (erro) => this.processarFalha(erro),
+  });
+  }    
+  
+
+  processarSucesso(contatos: ListarContatosViewModel[]){
+
+    this.contatos = contatos;
+
+  }
+
+  processarFalha(error: Error){
+    this.toastrService.error(
+    error.message, 'Error');
+         
+      
   }
 
 }
+
+
