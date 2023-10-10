@@ -1,27 +1,27 @@
 import { ListarContatosViewModel } from "../../contatos/models/listar-contatos.view-model"
-import TipoLocal from "./tipolocal.Enum"
+import { TipoLocal } from "./tipolocal.Enum"
 
 export class VisualizarCompromissosViewModel{
   id: string;
   assunto: string;
   local: string;
-  tipoLocal: number;
+  tipoLocal: TipoLocal;
   link:	string;
   data:	Date;
   horaInicio:	string;
   horaTermino:	string;
-  contato:	string;
+  contato?:	ListarContatosViewModel;
 
   constructor(
     id: string,
     assunto: string,
     local: string,
-    tipoLocal: number,
+    tipoLocal: TipoLocal,
     link:	string,
     data:	Date,
     horaInicio:	string,
     horaTermino:	string,
-    contato:	string,
+    contato?:	ListarContatosViewModel,
   ){
 
     this.id= id;

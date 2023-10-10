@@ -74,8 +74,8 @@
         
           <div class="form-group mb-3 position-relative">
             <label class="form-label">Contato:</label>
-            <select class="form-select w-50" name="categoriaId" id="" formControlName="contato">
-                <option *ngFor="let contato of contatos" [value]="contato.id">{{contato.nome}}</option>
+            <select class="form-select w-50" name="contatoId" id="" formControlName="contato">
+                <option *ngFor="let contato of contatos" [ngValue]="contato.id">{{contato.nome}}</option>
             </select>
           </div>
 

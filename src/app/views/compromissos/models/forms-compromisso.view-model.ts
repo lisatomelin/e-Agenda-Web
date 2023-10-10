@@ -1,8 +1,9 @@
-import TipoLocal from "./tipolocal.Enum";
+import { TipoLocal } from "./tipolocal.Enum";
+
 
 export class FormsCompromissosViewModel{
   assunto: string;
-  tipoLocal: number;
+  tipoLocal: TipoLocal;
   link: string;
   local: string;
   data: Date;
@@ -12,7 +13,7 @@ export class FormsCompromissosViewModel{
 
   constructor(
   assunto: string,
-  tipoLocal: number,
+  tipoLocal: TipoLocal,
   link: string,
   local: string,
   data: Date,

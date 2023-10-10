@@ -1,6 +1,5 @@
-enum TipoLocal {
+export enum TipoLocal {
   Presencial,
   Remoto
 }
 
-export default TipoLocal;

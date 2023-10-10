@@ -33,14 +33,14 @@ export class InserirCompromissoComponent {
       tipoLocal: new FormControl(0),
       link: new FormControl (''),
       local: new FormControl (''),
-      data: new FormControl (new Date),
-      horaInicio: new FormControl ('08:00'),
-      horaTermino: new FormControl ('09:00'),
-      contato: new FormControl (''),
+      data: new FormControl (new Date,[Validators.required]),
+      horaInicio: new FormControl ('08:00',[Validators.required]),
+      horaTermino: new FormControl ('09:00',[Validators.required]),
+      contato: new FormControl ('',[Validators.required]),
     });
 
     this.contatosService.selecionarTodos().subscribe(res => {
-      this.contatos = res;})
+      this.contatos = res;});
 
    
   }
