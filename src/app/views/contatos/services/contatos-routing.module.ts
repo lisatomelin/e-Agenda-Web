@@ -26,7 +26,6 @@ route: ActivatedRouteSnapshot) => {
 };
 
 
-
 const routes: Routes = [
 
   {

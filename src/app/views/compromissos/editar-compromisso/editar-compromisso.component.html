@@ -10,6 +10,7 @@
           <label class="form-label">Assunto:</label>
           <input
             formControlName="assunto"
+            [ngClass]="assunto?.touched && assunto?.invalid ? 'is-invalid' : ''"
             class="form-control"
             type="text"
             placeholder="Digite o assunto do compromisso"
@@ -50,7 +51,8 @@
 
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Data:</label>
-          <input formControlName="data" class="form-control" type="date" />
+          <input formControlName="data" 
+           class="form-control" type="date" />
         </div>
 
         <div class="form-group mb-3 position-relative row">
@@ -77,7 +79,7 @@
 
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Contato:</label>
-          <select class="form-select w-50" name="categoriaId" id="" formControlName="contato">
+          <select class="form-select w-50" id="" formControlName="contato">
             <option *ngFor="let contato of contatos" [value]="contato.id">{{contato.nome}}</option>
         </select>          
            

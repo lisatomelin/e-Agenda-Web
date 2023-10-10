@@ -33,9 +33,7 @@ export class EditarContatoComponent {
     });
 
 
-      this.contatoVW = this.route.snapshot.data['contato'];
-
-    
+      this.contatoVW = this.route.snapshot.data['contato'];    
 
       this.form.patchValue(this.contatoVW);
 

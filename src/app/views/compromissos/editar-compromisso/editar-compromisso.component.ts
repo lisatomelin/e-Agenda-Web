@@ -15,7 +15,6 @@ export class EditarCompromissoComponent {
   
     form!: FormGroup;
     compromissoVW!: FormsCompromissosViewModel;
-    idSelecionado: string | null = null;
     contatos: ListarContatosViewModel [] = [];
   
     constructor(private formBuilder: FormBuilder, 
@@ -31,23 +30,19 @@ export class EditarCompromissoComponent {
         assunto: new FormControl('', [Validators.required]),
         tipoLocal: new FormControl(''),
         link: new FormControl (''),
-        local: new FormControl (''),
-        data: new FormControl (new Date),
-        horaInicio: new FormControl ('08:00'),
-        horaTermino: new FormControl ('09:00'),
+        local: new FormControl ('', [Validators.required]),
+        data: new FormControl (new Date, [Validators.required]),
+        horaInicio: new FormControl ('08:00', [Validators.required]),
+        horaTermino: new FormControl ('09:00', [Validators.required]),
         contato: new FormControl (''),
       });
 
+      this.compromissoVW = this.route.snapshot.data['compromisso'];    
 
-      this.idSelecionado = this.route.snapshot.paramMap.get('id');
+      this.form.patchValue(this.compromissoVW);
 
-      if(!this.idSelecionado) return;
-  
-      this.compromissosService.selecionarPorId(this.idSelecionado).subscribe((res) => {
-  
-        this.form.patchValue(res);
-  
-      });
+
+    
     }
   
     get assunto(){
@@ -75,26 +70,48 @@ export class EditarCompromissoComponent {
     }
   
   
-  
     gravar(){
       if(this.form.invalid){
-        this.toastrService.warning('Verifique o preenchimento do formulário.', 'Aviso!');
-        
-        this.form.markAllAsTouched();
+        for(let erro of this.form.validate()){
+          this.toastrService.warning(erro);
+        }
+  
         return;
-      }
-  
-      this.compromissoVW = this.form.value;
-      
-  
-      this.compromissosService.editar(this.idSelecionado!,this.compromissoVW).subscribe(res=> {
-        console.log(res);
-        this.router.navigate(['/compromissos/listar']);
-        this.toastrService.success(`O compromisso "${res.assunto}" foi inserido com sucesso!`)
         
+      }
+      this.compromissoVW = this.form.value;
+  
+      const id = this.route.snapshot.paramMap.get('id');
+  
+      if (!id) return;
+  
+      this.compromissosService.editar(id,this.compromissoVW).subscribe({  
+        next: (compromisso) => this.processarSucesso(compromisso),
+        error: (erro) => this.processarFalha(erro),   
   
         
       });
     }
   
+    processarSucesso(compromisso: FormsCompromissosViewModel){
+  
+      this.toastrService.success(
+       `O compromisso "${compromisso.assunto}" foi editado com sucesso!`,
+      'Sucesso')
+  
+      this.router.navigate(['/compromissos/listar']);
+  
+  
+    }
+  
+    processarFalha(error: Error){
+      this.toastrService.error(
+      error.message, 'Error');
+           
+        
+    }
 }
+
+   
+  
+

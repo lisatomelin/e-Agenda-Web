@@ -36,7 +36,7 @@ export class InserirCompromissoComponent {
       data: new FormControl (new Date,[Validators.required]),
       horaInicio: new FormControl ('08:00',[Validators.required]),
       horaTermino: new FormControl ('09:00',[Validators.required]),
-      contato: new FormControl ('',[Validators.required]),
+      contato: new FormControl (''),
     });
 
     this.contatosService.selecionarTodos().subscribe(res => {
