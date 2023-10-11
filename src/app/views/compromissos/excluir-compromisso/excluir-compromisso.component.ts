@@ -23,7 +23,7 @@ export class ExcluirCompromissoComponent {
     private router: Router,
     private contatosService: ContatosService) {
 
-      this.compromissoVM = new VisualizarCompromissosViewModel('','', '', 0, '',new Date(), '', '',);
+      this.compromissoVM = new VisualizarCompromissosViewModel('','', '', 0, '',new Date(), '', '');
     }
   
     ngOnInit(): void {

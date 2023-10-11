@@ -9,7 +9,7 @@ export class FormsCompromissosViewModel{
   data: Date;
   horaInicio: string;
   horaTermino: string;
-  contato?: string;
+  nommeContato?: string;
 
   constructor(
   assunto: string,
@@ -19,7 +19,7 @@ export class FormsCompromissosViewModel{
   data: Date,
   horaInicio: string,
   horaTermino: string,
-  contato?: string
+  nommeContato?: string
   ) {
     this.assunto = assunto;
     this.tipoLocal = tipoLocal;
@@ -28,7 +28,7 @@ export class FormsCompromissosViewModel{
     this.data= data ;
     this.horaInicio= horaInicio;
     this.horaTermino= horaTermino;
-    this.contato= contato;
+    this.nommeContato= nommeContato;
 
   }
 

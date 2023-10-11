@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CompromissosService } from '../services/compromissos.service';
 import { ListarContatosViewModel } from '../../contatos/models/listar-contatos.view-model';
+import { ContatosService } from '../../contatos/services/contatos.service';
 
 @Component({
   selector: 'app-editar-compromisso',
@@ -21,6 +22,7 @@ export class EditarCompromissoComponent {
       private compromissosService: CompromissosService,
       private toastrService: ToastrService,
       private router: Router,
+      private contatoService: ContatosService,
       private route: ActivatedRoute
       ) {}
     
@@ -34,12 +36,24 @@ export class EditarCompromissoComponent {
         data: new FormControl (new Date, [Validators.required]),
         horaInicio: new FormControl ('08:00', [Validators.required]),
         horaTermino: new FormControl ('09:00', [Validators.required]),
-        contato: new FormControl (''),
+        contatoId: new FormControl (''),
       });
 
       this.compromissoVW = this.route.snapshot.data['compromisso'];    
 
       this.form.patchValue(this.compromissoVW);
+
+      this.contatoService.selecionarTodos().subscribe(res => {
+        this.contatos = res;
+      })
+
+      const id = this.route.snapshot.paramMap.get('id');
+
+      if(!id) return;
+
+      this.compromissosService.selecionarPorId(id).subscribe((res) => {
+        this.form.get('data')?.setValue(res.data.toString().substring(0, 10))
+      });
 
 
     

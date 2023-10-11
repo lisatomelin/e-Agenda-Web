@@ -7,7 +7,7 @@ export class ListarCompromissosViewModel{
   data: Date;
   horaInicio: string;
   horaTermino: string;
-  contato: ListarContatosViewModel;
+  nomeContato: string;
   
 
   constructor(
@@ -17,7 +17,7 @@ export class ListarCompromissosViewModel{
     data: Date,
     horaInicio: string,
     horaTermino : string,
-    contato: ListarContatosViewModel,) 
+    nomeContato: string,) 
   
   {
     this.id= id;
@@ -26,7 +26,7 @@ export class ListarCompromissosViewModel{
     this.data= data ;
     this.horaInicio= horaInicio;
     this.horaTermino= horaTermino;
-    this.contato= contato;
+    this.nomeContato= nomeContato;
    
   }
 

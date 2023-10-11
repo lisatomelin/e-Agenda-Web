@@ -11,7 +11,7 @@
 
         <h2 class="fs-5">
           Tem certeza que deseja excluir o compromisso
-          <span class="fw-bolder fst-italic">"Assunto" </span>?
+          <span class="fw-bolder fst-italic">{{compromissoVM.assunto}} </span>?
         </h2>
       </div>
 
@@ -56,7 +56,7 @@
           <label class="control-label">Contato</label>
           
         </dt>
-        <dd class="col-md-8">{{compromissoVM.contato}}</dd>
+        <dd class="col-md-8">{{compromissoVM.contato!.nome}}</dd>
       </dl>
 
       <div class="card-footer g-grid d-flex gap-1 mt-5">
