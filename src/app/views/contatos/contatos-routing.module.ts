@@ -1,13 +1,13 @@
 import { NgModule, inject } from "@angular/core";
 import { ActivatedRouteSnapshot, ResolveFn, RouterModule, Routes } from "@angular/router";
-import { ContatosService } from "./contatos.service";
-import { FormsContatoViewModel } from "../models/forms-contato.view-model";
-import { VisualizarContatoViewModel } from "../models/visualizar-contato.view-model";
-import { ListarContatosViewModel } from "../models/listar-contatos.view-model";
-import { InserirContatoComponent } from "../inserir-contato/inserir-contato.component";
-import { EditarContatoComponent } from "../editar-contato/editar-contato.component";
-import { ExcluirContatoComponent } from "../excluir-contato/excluir-contato.component";
-import { ListarContatosComponent } from "../listar-contatos/listar-contatos.component";
+import { ContatosService } from "./services/contatos.service";
+import { FormsContatoViewModel } from "./models/forms-contato.view-model";
+import { VisualizarContatoViewModel } from "./models/visualizar-contato.view-model";
+import { ListarContatosViewModel } from "./models/listar-contatos.view-model";
+import { InserirContatoComponent } from "./inserir-contato/inserir-contato.component";
+import { EditarContatoComponent } from "./editar-contato/editar-contato.component";
+import { ExcluirContatoComponent } from "./excluir-contato/excluir-contato.component";
+import { ListarContatosComponent } from "./listar-contatos/listar-contatos.component";
 
 
 const listarContatosResolver: ResolveFn<ListarContatosViewModel[]> = () => {

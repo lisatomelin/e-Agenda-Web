@@ -8,7 +8,7 @@ import { EditarCompromissoComponent } from "./editar-compromisso/editar-compromi
 import { ExcluirCompromissoComponent } from "./excluir-compromisso/excluir-compromisso.component";
 import { CompromissosService } from "./services/compromissos.service";
 import { CardCompromissoComponent } from './card-compromisso/card-compromisso.component';
-import { CompromissosRoutingModule } from "./services/compromissos-routing.module";
+import { CompromissosRoutingModule } from "./compromissos-routing.module";
 import { ContatosModule } from "../contatos/contatos.module";
 import 'src/app/extensions/form.group.extension';
 

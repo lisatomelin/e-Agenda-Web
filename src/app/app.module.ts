@@ -8,10 +8,16 @@ import { ToastrModule } from 'ngx-toastr';
 import { DashboardModule } from './views/dashboard/dashboard.module';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from "@angular/common/http";
+import { ListarCategoriasComponent } from './views/categorias/listar-categorias/listar-categorias.component';
+import { InserirCategoriaComponent } from './views/categorias/inserir-categoria/inserir-categoria.component';
+import { ExcluirCategoriaComponent } from './views/categorias/excluir-categoria/excluir-categoria.component';
 
 @NgModule({
   declarations: [
-    AppComponent,     
+    AppComponent,
+    ListarCategoriasComponent,
+    InserirCategoriaComponent,
+    ExcluirCategoriaComponent,     
         
   ],
 

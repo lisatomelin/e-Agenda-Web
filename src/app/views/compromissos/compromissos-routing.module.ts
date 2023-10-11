@@ -1,13 +1,13 @@
 import { NgModule, inject } from "@angular/core";
 import { ActivatedRouteSnapshot, ResolveFn, RouterModule, Routes } from "@angular/router";
-import { ListarCompromissosViewModel } from "../models/listar-compromissos.view-model";
-import { CompromissosService } from "./compromissos.service";
-import { FormsCompromissosViewModel } from "../models/forms-compromisso.view-model";
-import { VisualizarCompromissosViewModel } from "../models/visualizar-compromisso.view-model";
-import { InserirCompromissoComponent } from "../inserir-compromisso/inserir-compromisso.component";
-import { EditarCompromissoComponent } from "../editar-compromisso/editar-compromisso.component";
-import { ExcluirCompromissoComponent } from "../excluir-compromisso/excluir-compromisso.component";
-import { ListarCompromissosComponent } from "../listar-compromissos/listar-compromissos.component";
+import { ListarCompromissosViewModel } from "./models/listar-compromissos.view-model";
+import { CompromissosService } from "./services/compromissos.service";
+import { FormsCompromissosViewModel } from "./models/forms-compromisso.view-model";
+import { VisualizarCompromissosViewModel } from "./models/visualizar-compromisso.view-model";
+import { InserirCompromissoComponent } from "./inserir-compromisso/inserir-compromisso.component";
+import { EditarCompromissoComponent } from "./editar-compromisso/editar-compromisso.component";
+import { ExcluirCompromissoComponent } from "./excluir-compromisso/excluir-compromisso.component";
+import { ListarCompromissosComponent } from "./listar-compromissos/listar-compromissos.component";
 
 
 const listarCompromissosResolver: ResolveFn<ListarCompromissosViewModel[]> = () => {
