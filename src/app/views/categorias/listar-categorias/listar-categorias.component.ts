@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ListarCategoriasViewModel } from '../models/listar-categorias.view-model';
+import { CategoriasService } from '../services/categorias.service';
 
 @Component({
   selector: 'app-listar-categorias',
@@ -11,10 +11,13 @@ export class ListarCategoriasComponent implements OnInit {
 
   categorias: ListarCategoriasViewModel[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private categoriasService: CategoriasService) {}
 
   ngOnInit(): void {
-    this.categorias = this.route.snapshot.data['categorias']
+     this.categoriasService.selecionarTodos().subscribe((res) => {
+      this.categorias = res;
+      console.log(this.categorias)
+    });
   }
   
 }

@@ -44,7 +44,7 @@ export class ExcluirCompromissoComponent {
     this.compromissosService.excluir(this.idSelecionado!)
     .subscribe((res)=> {
       this.router.navigate(['/compromissos','listar'])
-      this.toastrService.success(`O compromisso "${res.nome}" foi excluído com sucesso!`)
+      this.toastrService.success(`O compromisso "${res.nome}" foi excluída com sucesso!`)
       
     });
 

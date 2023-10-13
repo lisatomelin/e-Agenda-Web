@@ -22,15 +22,12 @@ export class InserirCategoriaComponent {
 
 
     ngOnInit(): void {
-      this.form = this.formBuilder.group({
-        id: new FormControl('', [Validators.required]),
-        titulo: new FormControl([Validators.required]),
+      this.form = this.formBuilder.group({        
+        titulo: new FormControl('',[Validators.required]),
        
-      });
-  
+      });  
           
     }
-
 
     gravar(){
       if(this.form.invalid){
@@ -38,8 +35,7 @@ export class InserirCategoriaComponent {
           this.toastrService.warning(erro);
         } 
   
-        return;
-           
+        return;           
     }
   
     this.categoriasVW = this.form.value;
@@ -54,7 +50,7 @@ export class InserirCategoriaComponent {
     processarSucesso(categoria: FormsCategoriasViewModel){
   
       this.toastrService.success(
-       `O contato "${categoria.titulo}" foi inserido com sucesso!`,
+       `A Categoria "${categoria.titulo}" foi inserida com sucesso!`,
       'Sucesso')
   
       this.router.navigate(['/categorias/listar']);

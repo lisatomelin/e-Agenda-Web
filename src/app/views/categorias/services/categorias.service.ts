@@ -4,6 +4,7 @@ import { Observable, catchError, map, throwError } from "rxjs";
 import { FormsCategoriasViewModel } from "../models/forms-categoria.view-models";
 import { ListarCategoriasViewModel } from "../models/listar-categorias.view-model";
 import { environment } from "src/environments/environment";
+import { VisualizarCategoriaViewModel } from "../models/visualizar-categoria.view-model";
 
 @Injectable()
 export class CategoriasService {
@@ -20,6 +21,20 @@ export class CategoriasService {
         catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
+  public editar(id: string, categorias: FormsCategoriasViewModel){
+    return this.http.put<any>(
+      this.endpoint + id, categorias, this.obterHeadersAutorizacao())
+      .pipe(map((res) => res.dados),
+      catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
+  }
+
+  public excluir(id: string): Observable<any> {
+    return this.http.delete<any>(this.endpoint+id, this.obterHeadersAutorizacao())
+    .pipe(
+      catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
+    );
+  }
+
   public selecionarTodos(): Observable<ListarCategoriasViewModel[]> {
     return this.http.get<any>(this.endpoint, this.obterHeadersAutorizacao())
     .pipe(map((res) => res.dados),
@@ -30,6 +45,18 @@ export class CategoriasService {
     return this.http.get<any>(this.endpoint+id, this.obterHeadersAutorizacao())
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
+  }
+
+    public selecionarCategoriaCompletoPorId(id: string): Observable<VisualizarCategoriaViewModel>
+  {
+    return this.http
+    .get<any>(
+      this.endpoint + 'visualizacao-completa/' + id, 
+      this.obterHeadersAutorizacao()
+      )
+    .pipe(map((res) => res.dados),
+    catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
+    
   }
 
   private processarErroHttp(erro: HttpErrorResponse){

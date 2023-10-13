@@ -11,25 +11,23 @@
 
         <h2 class="fs-5">
           Tem certeza que deseja excluir a categoria
-          <span class="fw-bolder fst-italic"
-            >"Mercado" </span
-          >?
+          <span class="fw-bolder fst-italic">"{{categoriasVM.titulo}}" </span>?
         </h2>
       </div>
 
       <dl class="form-group mt-4 row">
         <dt class="col-md-4">
-          <label class="control-label">Título:</label>
+          <label class="control-label">Titulo:</label>
         </dt>
-        <dd class="col-md-8">
-          Mercado
-        </dd>
+        <dd class="col-md-8">{{categoriasVM.titulo}}
+          
+        </dd>        
       </dl>
 
       <div class="card-footer g-grid d-flex gap-1 mt-5">
         <button
-          (click)="gravar()" 
-          type="button"
+          data-cy="btnExcluirCategoria"
+          (click) = "gravar()"
           class="btn btn-danger px-5"
         >
           <i class="bi bi-trash-fill me-2"></i>

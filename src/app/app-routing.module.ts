@@ -22,6 +22,14 @@ const routes: Routes = [
     loadChildren: () => import('./views/contatos/contatos.module').then(m => m.ContatosModule)
 
   }, 
+
+  {
+    path:'categorias',
+    loadChildren: () => import('./views/categorias/categorias.module').then(m => m.CategoriasModule)
+
+  }, 
+
+  
   
 ];
 

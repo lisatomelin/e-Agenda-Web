@@ -15,9 +15,7 @@ import { ExcluirCategoriaComponent } from './views/categorias/excluir-categoria/
 @NgModule({
   declarations: [
     AppComponent,
-    ListarCategoriasComponent,
-    InserirCategoriaComponent,
-    ExcluirCategoriaComponent,     
+       
         
   ],
 
