@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CategoriasService } from '../services/categorias.service';
 import { VisualizarCategoriaViewModel } from '../models/visualizar-categoria.view-model';
 
+
 @Component({
   selector: 'app-excluir-categoria',
   templateUrl: './excluir-categoria.component.html',

@@ -23,7 +23,7 @@ import { EditarCategoriaComponent } from "./editar-categoria/editar-categoria.co
     
     
   ],
-  imports: [CommonModule, ReactiveFormsModule, CategoriasRoutingModule ],
+  imports: [CommonModule, ReactiveFormsModule, CategoriasRoutingModule],
 
   providers: [CategoriasService],
 
