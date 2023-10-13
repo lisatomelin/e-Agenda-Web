@@ -29,6 +29,11 @@ const routes: Routes = [
 
   }, 
 
+  {
+    path:'despesas',
+    loadChildren: () => import('./views/despesas/despesas.module').then(m => m.DespesasModule)
+
+  }, 
   
   
 ];
