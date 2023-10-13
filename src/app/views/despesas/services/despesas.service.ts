@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { FormsDespesasViewModel } from "../models/forms-despesas.view-model";
 import { environment } from "src/environments/environment";
 import { Observable, catchError, map, throwError } from "rxjs";
+import { VisualizarDespesaViewModel } from "../models/visualizar-despesas.view-model";
+import { ListarDespesaViewModel } from "../models/listar-despesas.view.model";
 
 @Injectable()
 export class DespesasService{
@@ -25,11 +27,16 @@ export class DespesasService{
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
-  // public selecionarTodos(): Observable<ListarDespesasViewModel[]> {
-  //   return this.http.get<any>(this.endpoint, this.obterHeadersAutorizacao())
-  //   .pipe(map((res) => res.dados),
-  //   catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
-  // }
+  public excluir(id: string): Observable<any>{
+    return this.http.delete(this.endpoint + id, this.obterHeadersAutorizacao())
+  }
+
+
+  public selecionarTodos(): Observable<ListarDespesaViewModel[]> {
+    return this.http.get<any>(this.endpoint, this.obterHeadersAutorizacao())
+    .pipe(map((res) => res.dados),
+    catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
+  }
 
   public selecionarPorId(id: string): Observable<FormsDespesasViewModel>{
     return this.http.get<any>(this.endpoint+id, this.obterHeadersAutorizacao())
@@ -37,7 +44,18 @@ export class DespesasService{
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
     );
   }
-  
+
+  public selecionarDespesasCompletoPorId(id: string): Observable<VisualizarDespesaViewModel>
+  {
+    return this.http
+    .get<any>(
+      this.endpoint + 'visualizacao-completa/' + id, 
+      this.obterHeadersAutorizacao()
+      )
+    .pipe(map((res) => res.dados),
+    catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
+    
+  }  
 
   private processarErroHttp(erro: HttpErrorResponse){
     let mensagemErro = '';

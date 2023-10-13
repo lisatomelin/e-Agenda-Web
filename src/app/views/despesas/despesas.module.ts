@@ -8,15 +8,18 @@ import { CategoriasModule } from '../categorias/categorias.module';
 import { InserirDespesasComponent } from './inserir-despesas/inserir-despesas.component';
 import { DespesasService } from './services/despesas.service';
 import 'src/app/extensions/form.group.extension';
-import { EditarDespesasComponent } from './editar-despesas/editar-despesas.component';
+
 import { ListarDespesasComponent } from './listar-despesas/listar-despesas.component';
+import { ExcluirDespesaComponent } from './excluir-despesa/excluir-despesa.component';
+import { EditarDespesaComponent } from './editar-despesas/editar-despesa.component';
 
 
 @NgModule({
   declarations: [
     InserirDespesasComponent,
-    EditarDespesasComponent,
-    ListarDespesasComponent
+    EditarDespesaComponent,    
+    ListarDespesasComponent,
+    ExcluirDespesaComponent
   ],
   imports: [
     CommonModule,

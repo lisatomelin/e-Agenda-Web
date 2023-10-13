@@ -5,11 +5,11 @@
         <h1 class="fw-bold text-primary">Editar Despesa</h1>
       </div>
 
-      <form [formGroup]="form!" (ngSubmit)="gravar()" class= "mt-4">
+      <form [formGroup]="form!" (ngSubmit)="gravar()" class="mt-4">
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Descrição:</label>
           <input
-           formControlName="descricao"
+            formControlName="descricao"
             class="form-control"
             type="text"
             placeholder="Digite a descrição da despesa"
@@ -39,7 +39,7 @@
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Valor:</label>
           <input
-          formControlName="valor"
+            formControlName="valor"
             class="form-control w-50"
             type="number"
             placeholder="Digite o valor da despesa"
@@ -48,8 +48,12 @@
 
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Categorias:</label>
-          <ng-select formControlName="categoriasSelecionadas"[multiple]="true">
-            <ng-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.titulo}}</ng-option>            
+          <ng-select formControlName="categoriasSelecionadas" [multiple]="true">
+            <ng-option
+              *ngFor="let categoria of categorias"
+              [value]="categoria.id"
+              >{{ categoria.titulo }}</ng-option
+            >
           </ng-select>
         </div>
 
@@ -71,4 +75,3 @@
     </div>
   </div>
 </div>
-

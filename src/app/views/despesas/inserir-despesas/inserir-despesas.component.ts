@@ -12,7 +12,7 @@ import { CategoriasService } from '../../categorias/services/categorias.service'
   styleUrls: ['./inserir-despesas.component.css']
 })
 export class InserirDespesasComponent implements OnInit{
-  form!: FormGroup;
+  form?: FormGroup;
 
   categorias: ListarCategoriasViewModel[] = [];
 
@@ -37,22 +37,17 @@ export class InserirDespesasComponent implements OnInit{
     this.categoriaService.selecionarTodos().subscribe((res) => (this.categorias = res));
   }
 
-    gravar() {
-      if(this.form.invalid){
-        for (let erro of this.form.validate()){
-          this.toastrService.warning(erro);
-        } 
+  gravar(){
+    if(this.form?.invalid){
+      for(let erro of this.form.validate()) 
+        this.toastrService.warning(erro);
 
-        return;
-          
+      return;
     }
 
     this.despesasService.inserir(this.form?.value).subscribe(res => {
-      this.toastrService.success(
-        `A despesa "${res.descricao}" foi inserida com sucesso!`,
-       'Sucesso')
-   
-       this.router.navigate(['/despesas/listar']);
+      this.toastrService.success(`A despesa ${res.descricao} foi cadastrado com sucesso!`, 'Sucesso')
+      this.router.navigate(['/despesas/listar'])
     })
   }
 

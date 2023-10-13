@@ -36,7 +36,7 @@ const routes: Routes = [
   {
     path: 'listar',
     component: ListarCategoriasComponent,
-    resolve: {categoria: listarCategoriasResolver},
+    resolve: {categorias: listarCategoriasResolver},
   }, 
 
   {
