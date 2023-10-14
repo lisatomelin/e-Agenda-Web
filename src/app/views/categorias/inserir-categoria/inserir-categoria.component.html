@@ -10,6 +10,7 @@
           <label class="form-label">Título:</label>
           <input
           formControlName="titulo"
+          [ngClass]="titulo?.touched && titulo?.invalid ? 'is-invalid' : ''"
             class="form-control"
             type="text"
             placeholder="Digite o título da categoria"

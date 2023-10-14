@@ -48,14 +48,7 @@ export class InserirCompromissoComponent {
   get assunto(){
     return this.form.get('assunto');
   }
-
-  get tipoLocal() {
-    return this.form.get('tipoLocal');
-  }
-
-  get local() {
-    return this.form.get('local');
-  }
+  
 
   get data() {
     return this.form.get('data');
@@ -64,10 +57,11 @@ export class InserirCompromissoComponent {
   get horaInicio() {
     return this.form.get('horaInicio');
   }
-
-  get Contato() {
-    return this.form.get('contato');
+  get horaTermino() {
+    return this.form.get('horaTermino');
   }
+
+  
 
 
 

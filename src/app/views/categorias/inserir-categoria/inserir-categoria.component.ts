@@ -29,6 +29,10 @@ export class InserirCategoriaComponent {
           
     }
 
+    get titulo(){
+      return this.form.get('titulo');
+    }
+
     gravar(){
       if(this.form.invalid){
         for (let erro of this.form.validate()){

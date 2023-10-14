@@ -37,6 +37,10 @@ export class InserirDespesasComponent implements OnInit{
     this.categoriaService.selecionarTodos().subscribe((res) => (this.categorias = res));
   }
 
+  campoEstaInvalido(nome: string) {
+    return this.form?.get(nome)!.touched && this.form?.get(nome)!.invalid;
+  }
+
   gravar(){
     if(this.form?.invalid){
       for(let erro of this.form.validate()) 

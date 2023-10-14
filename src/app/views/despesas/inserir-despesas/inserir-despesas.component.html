@@ -10,6 +10,7 @@
           <label class="form-label">Descrição:</label>
           <input
            formControlName="descricao"
+           [ngClass]="campoEstaInvalido('descricao') ? 'is-invalid' : ''"
             class="form-control"
             type="text"
             placeholder="Digite a descrição da despesa"
@@ -20,6 +21,7 @@
           <label class="form-label">Data:</label>
           <input
             formControlName="data"
+            [ngClass]="campoEstaInvalido('data') ? 'is-invalid' : ''"
             class="form-control"
             type="date"
             placeholder="Digite o link do compromisso"
@@ -29,7 +31,9 @@
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Forma de Pagamento:</label>
 
-          <ng-select formControlName="formaPagamento" [clearable]="false">
+          <ng-select formControlName="formaPagamento" 
+          [ngClass]="campoEstaInvalido('formaPagamento') ? 'is-invalid' : ''" 
+          [clearable]="false">
             <ng-option [value]="0">PIX</ng-option>
             <ng-option [value]="1">Cartão de Cédito</ng-option>
             <ng-option [value]="2">À Vista</ng-option>
@@ -40,6 +44,7 @@
           <label class="form-label">Valor:</label>
           <input
           formControlName="valor"
+          [ngClass]="campoEstaInvalido('valor') ? 'is-invalid' : ''"
             class="form-control w-50"
             type="number"
             placeholder="Digite o valor da despesa"
@@ -48,7 +53,9 @@
 
         <div class="form-group mb-3 position-relative">
           <label class="form-label">Categorias:</label>
-          <ng-select formControlName="categoriasSelecionadas"[multiple]="true">
+          <ng-select formControlName="categoriasSelecionadas" 
+          [ngClass]="campoEstaInvalido('categoriasSelecionadas') ? 'is-invalid' : ''"
+          [multiple]="true">
             <ng-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.titulo}}</ng-option>            
           </ng-select>
         </div>
