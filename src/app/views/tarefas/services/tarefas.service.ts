@@ -4,6 +4,7 @@ import { FormsTarefaViewModel } from "../models/forms-tarefa.view-models";
 import { Observable, catchError, map, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ListarTarefasViewModel } from "../models/listar-tarefas.view-model";
+import { VisualizarTarefaViewModel } from "../models/visualizar-tarefa.view-model";
 
 @Injectable()
 export class TarefasService{
@@ -27,6 +28,10 @@ export class TarefasService{
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
+  public excluir(id: string): Observable<any>{
+    return this.http.delete(this.endpoint + id, this.obterHeadersAutorizacao())
+  }
+
 
   public selecionarTodos(): Observable<ListarTarefasViewModel[]> {
     return this.http.get<any>(this.endpoint, this.obterHeadersAutorizacao())
@@ -40,6 +45,18 @@ export class TarefasService{
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
     );
   }
+
+  public selecionarTarefasCompletoPorId(id: string): Observable<VisualizarTarefaViewModel>
+  {
+    return this.http
+    .get<any>(
+      this.endpoint + 'visualizacao-completa/' + id, 
+      this.obterHeadersAutorizacao()
+      )
+    .pipe(map((res) => res.dados),
+    catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
+    
+  }  
 
 
   private processarErroHttp(erro: HttpErrorResponse){
