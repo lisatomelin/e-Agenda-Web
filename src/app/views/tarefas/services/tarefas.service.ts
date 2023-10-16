@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormsTarefaViewModel } from "../models/forms-tarefas.view-models";
+import { FormsTarefaViewModel } from "../models/forms-tarefa.view-models";
 import { Observable, catchError, map, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
+import { ListarTarefasViewModel } from "../models/listar-tarefas.view-model";
 
 @Injectable()
 export class TarefasService{
@@ -12,11 +13,32 @@ export class TarefasService{
 
   constructor(private http: HttpClient){}
 
-  public inserir(tarefas: FormsTarefaViewModel): Observable<FormsTarefaViewModel> {
-    return this.http.post<any>(this.endpoint, tarefas, this.obterHeadersAutorizacao())
+  public inserir(tarefa: FormsTarefaViewModel): Observable<FormsTarefaViewModel> {
+    return this.http.post<any>(this.endpoint, tarefa, this.obterHeadersAutorizacao())
     .pipe(
       map((res) => res.dados),
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
+  }
+
+  public editar(id: string, tarefa: FormsTarefaViewModel){
+    return this.http.put<any>(
+      this.endpoint + id, tarefa, this.obterHeadersAutorizacao())
+      .pipe(map((res) => res.dados),
+      catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
+  }
+
+
+  public selecionarTodos(): Observable<ListarTarefasViewModel[]> {
+    return this.http.get<any>(this.endpoint, this.obterHeadersAutorizacao())
+    .pipe(map((res) => res.dados),
+    catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
+  }
+
+  public selecionarPorId(id: string): Observable<FormsTarefaViewModel>{
+    return this.http.get<any>(this.endpoint+id, this.obterHeadersAutorizacao())
+    .pipe(map((res) => res.dados),
+    catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
+    );
   }
 
 
