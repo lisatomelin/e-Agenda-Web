@@ -2,9 +2,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { Injectable } from "@angular/core";
 import { FormsTarefaViewModel } from "../models/forms-tarefa.view-models";
 import { Observable, catchError, map, throwError } from "rxjs";
-import { environment } from "src/environments/environment";
 import { ListarTarefasViewModel } from "../models/listar-tarefas.view-model";
 import { VisualizarTarefaViewModel } from "../models/visualizar-tarefa.view-model";
+import { LocalStorageService } from "src/app/core/auth/services/local-storage.service";
 
 @Injectable()
 export class TarefasService{
@@ -12,7 +12,7 @@ export class TarefasService{
   private endpoint: string =
   'https://e-agenda-web-api.onrender.com/api/tarefas/';
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
 
   public inserir(tarefa: FormsTarefaViewModel): Observable<FormsTarefaViewModel> {
     return this.http.post<any>(this.endpoint, tarefa, this.obterHeadersAutorizacao())
@@ -75,7 +75,7 @@ export class TarefasService{
 
 
   private obterHeadersAutorizacao(){
-    const token = environment.apiKey;
+    const token = this.LocalStorage.obterDadosLocaisSalvos()?.chave;
 
     return{
       headers: new HttpHeaders({

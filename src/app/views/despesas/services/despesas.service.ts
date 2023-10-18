@@ -1,17 +1,17 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormsDespesasViewModel } from "../models/forms-despesas.view-model";
-import { environment } from "src/environments/environment";
 import { Observable, catchError, map, throwError } from "rxjs";
 import { VisualizarDespesaViewModel } from "../models/visualizar-despesas.view-model";
 import { ListarDespesaViewModel } from "../models/listar-despesas.view.model";
+import { LocalStorageService } from "src/app/core/auth/services/local-storage.service";
 
 @Injectable()
 export class DespesasService{
   private endpoint: string = 
   'https://e-agenda-web-api.onrender.com/api/despesas/';
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
 
   public inserir(despesa: FormsDespesasViewModel): Observable<FormsDespesasViewModel> {
     return this.http.post<any>(this.endpoint, despesa, this.obterHeadersAutorizacao())
@@ -70,8 +70,10 @@ export class DespesasService{
 
     return throwError(() => new Error(mensagemErro));
   }
+
+
   private obterHeadersAutorizacao(){
-    const token = environment.apiKey;
+    const token = this.LocalStorage.obterDadosLocaisSalvos()?.chave;
   
     return{
       headers: new HttpHeaders({

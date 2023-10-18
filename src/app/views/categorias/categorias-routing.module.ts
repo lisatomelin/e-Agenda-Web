@@ -1,6 +1,5 @@
 import { ActivatedRouteSnapshot, ResolveFn, RouterModule, Routes } from "@angular/router";
 import { InserirCategoriaComponent } from "./inserir-categoria/inserir-categoria.component";
-import { ExcluirCompromissoComponent } from "../compromissos/excluir-compromisso/excluir-compromisso.component";
 import { ListarCategoriasComponent } from "./listar-categorias/listar-categorias.component";
 import { NgModule, inject } from "@angular/core";
 import { ListarCategoriasViewModel } from "./models/listar-categorias.view-model";

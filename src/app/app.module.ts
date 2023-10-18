@@ -8,6 +8,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { DashboardModule } from './views/dashboard/dashboard.module';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from "@angular/common/http";
+import { RegistroModule } from './views/registro/registro.module';
+import { LoginModule } from './views/login/login.module';
 
 
 @NgModule({
@@ -20,17 +22,19 @@ import { HttpClientModule } from "@angular/common/http";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
+    
     NgbModule,
-
     ToastrModule.forRoot({
       timeOut:5000,
       positionClass:"toast-top-center",
       preventDuplicates: true,
-    }),
+    }),    
 
-    HttpClientModule,
     CoreModule,
+    RegistroModule,
+    LoginModule,
     DashboardModule,    
   
     

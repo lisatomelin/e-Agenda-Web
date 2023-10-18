@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
-import { environment } from "src/environments/environment";
 import { Observable } from "rxjs/internal/Observable";
 import { FormsContatoViewModel } from "../models/forms-contato.view-model";
 import { ListarContatosViewModel } from "../models/listar-contatos.view-model";
 import { catchError, map, throwError } from "rxjs";
 import { VisualizarContatoViewModel } from "../models/visualizar-contato.view-model";
+import { LocalStorageService } from "src/app/core/auth/services/local-storage.service";
 
 @Injectable()
 export class ContatosService {
@@ -13,7 +13,7 @@ export class ContatosService {
   private endpoint: string =
   'https://e-agenda-web-api.onrender.com/api/contatos/';
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
 
   public inserir(contato: FormsContatoViewModel): Observable<FormsContatoViewModel> {
       return this.http
@@ -80,7 +80,7 @@ export class ContatosService {
   
 
   private obterHeadersAutorizacao(){
-    const token = environment.apiKey;
+    const token = this.LocalStorage.obterDadosLocaisSalvos()?.chave;
 
     return{
       headers: new HttpHeaders({
