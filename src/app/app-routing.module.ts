@@ -1,8 +1,6 @@
-import { Inject, NgModule } from '@angular/core';
-import { CanActivateFn, Router, RouterModule, Routes, UrlTree } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { Observable, map } from 'rxjs';
-import { AuthService } from './core/auth/services/auth.service';
 import { authGuard } from './core/auth/guards/auth.guard';
 
 

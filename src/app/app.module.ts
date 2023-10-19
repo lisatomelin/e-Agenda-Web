@@ -19,9 +19,7 @@ function logarUsuarioSalvoFactory(AuthService: AuthService) {
 
 @NgModule({
   declarations: [
-    AppComponent,
-   
-        
+    AppComponent,  
   ],
 
   imports: [
@@ -44,12 +42,15 @@ function logarUsuarioSalvoFactory(AuthService: AuthService) {
   
     
   ],
-  providers: [{
+  providers: [
+    {
     provide: APP_INITIALIZER,
     useFactory: logarUsuarioSalvoFactory,
     deps: [AuthService],
     multi: true
-  }],
+  },
+],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

@@ -35,8 +35,7 @@ export class AuthService{
 
       tap((dados: TokenViewModel) => this.LocalStorage.salvarDadosLocalUsuario(dados)),// obter o retorno do map e salva no storage
 
-      tap((dados: TokenViewModel) => this.notificarLogin(dados.usuarioToken)),// notifica os componentes que o usuário realizou o login
-      
+         
       catchError((err) => this.processarErroHttp(err))
     );
   }
@@ -47,6 +46,8 @@ export class AuthService{
       map(res => res.dados), //mapeia a res completa e retorna só os dados
 
       tap((dados: TokenViewModel) => this.LocalStorage.salvarDadosLocalUsuario(dados)),// obter o retorno do map e salva no storage
+      
+      tap((dados: TokenViewModel) => this.notificarLogin(dados.usuarioToken)),// notifica os componentes que o usuário realizou o login
       
       catchError((err) => this.processarErroHttp(err))
     );
