@@ -15,7 +15,7 @@ export class CategoriasService {
   constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
 
   public inserir(categorias: FormsCategoriasViewModel): Observable<FormsCategoriasViewModel> {
-      return this.http.post<any>(this.endpoint, categorias, this.obterHeadersAutorizacao())
+      return this.http.post<any>(this.endpoint, categorias)
       .pipe(
         map((res) => res.dados),
         catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
@@ -23,26 +23,26 @@ export class CategoriasService {
 
   public editar(id: string, categorias: FormsCategoriasViewModel){
     return this.http.put<any>(
-      this.endpoint + id, categorias, this.obterHeadersAutorizacao())
+      this.endpoint + id, categorias)
       .pipe(map((res) => res.dados),
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
   public excluir(id: string): Observable<any> {
-    return this.http.delete<any>(this.endpoint+id, this.obterHeadersAutorizacao())
+    return this.http.delete<any>(this.endpoint+id)
     .pipe(
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
     );
   }
 
   public selecionarTodos(): Observable<ListarCategoriasViewModel[]> {
-    return this.http.get<any>(this.endpoint, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
   public selecionarPorId(id: string): Observable<FormsCategoriasViewModel>{
-    return this.http.get<any>(this.endpoint+id, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint+id)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
@@ -51,9 +51,7 @@ export class CategoriasService {
   {
     return this.http
     .get<any>(
-      this.endpoint + 'visualizacao-completa/' + id, 
-      this.obterHeadersAutorizacao()
-      )
+      this.endpoint + 'visualizacao-completa/' + id)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
     
@@ -71,18 +69,6 @@ export class CategoriasService {
     else mensagemErro = erro.error?.erros(0);
 
     return throwError(() => new Error(mensagemErro));
-  }
-
-
-  private obterHeadersAutorizacao(){
-    const token = this.LocalStorage.obterDadosLocaisSalvos()?.chave;
-  
-    return{
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization:`Bearer ${token}`,
-      }),
-    };
-  }
+  }  
 
 }

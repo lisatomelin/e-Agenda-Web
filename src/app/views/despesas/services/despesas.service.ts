@@ -14,7 +14,7 @@ export class DespesasService{
   constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
 
   public inserir(despesa: FormsDespesasViewModel): Observable<FormsDespesasViewModel> {
-    return this.http.post<any>(this.endpoint, despesa, this.obterHeadersAutorizacao())
+    return this.http.post<any>(this.endpoint, despesa)
     .pipe(
       map((res) => res.dados),
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
@@ -22,24 +22,24 @@ export class DespesasService{
 
   public editar(id: string, despesa: FormsDespesasViewModel){
     return this.http.put<any>(
-      this.endpoint + id, despesa, this.obterHeadersAutorizacao())
+      this.endpoint + id, despesa)
       .pipe(map((res) => res.dados),
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
   public excluir(id: string): Observable<any>{
-    return this.http.delete(this.endpoint + id, this.obterHeadersAutorizacao())
+    return this.http.delete(this.endpoint + id)
   }
 
 
   public selecionarTodos(): Observable<ListarDespesaViewModel[]> {
-    return this.http.get<any>(this.endpoint, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
   public selecionarPorId(id: string): Observable<FormsDespesasViewModel>{
-    return this.http.get<any>(this.endpoint+id, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint+id)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
     );
@@ -49,9 +49,7 @@ export class DespesasService{
   {
     return this.http
     .get<any>(
-      this.endpoint + 'visualizacao-completa/' + id, 
-      this.obterHeadersAutorizacao()
-      )
+      this.endpoint + 'visualizacao-completa/' + id)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
     
@@ -70,19 +68,6 @@ export class DespesasService{
 
     return throwError(() => new Error(mensagemErro));
   }
-
-
-  private obterHeadersAutorizacao(){
-    const token = this.LocalStorage.obterDadosLocaisSalvos()?.chave;
-  
-    return{
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization:`Bearer ${token}`,
-      }),
-    };
-  }
-
 
 
 }

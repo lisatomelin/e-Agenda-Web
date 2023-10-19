@@ -17,36 +17,35 @@ export class ContatosService {
 
   public inserir(contato: FormsContatoViewModel): Observable<FormsContatoViewModel> {
       return this.http
-      .post<any>(this.endpoint, contato, this.obterHeadersAutorizacao())
+      .post<any>(this.endpoint, contato)
       .pipe(
         map((res) => res.dados),
         catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
-        
-      
+             
       );
     }
 
   public editar(id: string, contato: FormsContatoViewModel){
     return this.http.put<any>(
-      this.endpoint + id, contato, this.obterHeadersAutorizacao())
+      this.endpoint + id, contato)
       .pipe(map((res) => res.dados),
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
   public excluir(id: string): Observable<any> {
-    return this.http.delete<any>(this.endpoint+id, this.obterHeadersAutorizacao()).pipe(
+    return this.http.delete(this.endpoint+id).pipe(
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
     );
   }
 
   public selecionarTodos(): Observable<ListarContatosViewModel[]> {
-    return this.http.get<any>(this.endpoint, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
   public selecionarPorId(id: string): Observable<FormsContatoViewModel>{
-    return this.http.get<any>(this.endpoint+id, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint+id)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
     );
@@ -56,9 +55,7 @@ export class ContatosService {
   {
     return this.http
     .get<any>(
-      this.endpoint + 'visualizacao-completa/' + id, 
-      this.obterHeadersAutorizacao()
-      )
+      this.endpoint + 'visualizacao-completa/' + id)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
     
@@ -78,16 +75,5 @@ export class ContatosService {
     return throwError(() => new Error(mensagemErro));
   }
   
-
-  private obterHeadersAutorizacao(){
-    const token = this.LocalStorage.obterDadosLocaisSalvos()?.chave;
-
-    return{
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization:`Bearer ${token}`,
-      }),
-    };
-  }
   
 }

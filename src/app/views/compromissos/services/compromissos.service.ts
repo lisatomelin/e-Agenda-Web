@@ -15,7 +15,7 @@ export class CompromissosService {
   constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
 
   public inserir(compromissos: FormsCompromissosViewModel): Observable<FormsCompromissosViewModel> {
-      return this.http.post<any>(this.endpoint, compromissos, this.obterHeadersAutorizacao())
+      return this.http.post<any>(this.endpoint, compromissos)
       .pipe(
         map((res) => res.dados),
         catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
@@ -23,32 +23,32 @@ export class CompromissosService {
 
   public editar(id: string, compromissos: FormsCompromissosViewModel){
     return this.http.put<any>(
-      this.endpoint + id, compromissos, this.obterHeadersAutorizacao())
+      this.endpoint + id, compromissos)
       .pipe(map((res) => res.dados),
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
   public excluir(id: string): Observable<any> {
-    return this.http.delete<any>(this.endpoint+id, this.obterHeadersAutorizacao())
+    return this.http.delete<any>(this.endpoint+id)
     .pipe(
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
     );
   }
 
   public selecionarTodos(): Observable<ListarCompromissosViewModel[]> {
-    return this.http.get<any>(this.endpoint, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
   public selecionarPorId(id: string): Observable<FormsCompromissosViewModel>{
-    return this.http.get<any>(this.endpoint+id, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint+id)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
   public selecionarContatoCompletoPorId(id: string): Observable<VisualizarCompromissosViewModel>{
-    return this.http.get<any>(this.endpoint + 'visualizacao-completa/' + id, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint + 'visualizacao-completa/' + id)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
@@ -66,16 +66,5 @@ export class CompromissosService {
 
     return throwError(() => new Error(mensagemErro));
   }
-
-
-  private obterHeadersAutorizacao(){
-    const token = this.LocalStorage.obterDadosLocaisSalvos()?.chave;
   
-    return{
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization:`Bearer ${token}`,
-      }),
-    };
-  }
 }

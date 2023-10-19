@@ -31,7 +31,7 @@ export class AuthService{
 
   public registrar(usuario: RegistrarUsuarioViewModel): Observable<TokenViewModel> {
     return this.http.post<any>(this.endpointRegistrar, usuario).pipe(
-      map(res => res.dados), //mapeia a res completa e retorna só os dados
+      map((res) => res.dados), //mapeia a res completa e retorna só os dados
 
       tap((dados: TokenViewModel) => this.LocalStorage.salvarDadosLocalUsuario(dados)),// obter o retorno do map e salva no storage
 
@@ -43,7 +43,7 @@ export class AuthService{
 
   public login(usuario: AutenticarUsuarioViewModel): Observable<TokenViewModel> {
     return this.http.post<any>(this.endpointLogin, usuario).pipe(
-      map(res => res.dados), //mapeia a res completa e retorna só os dados
+      map((res) => res.dados), //mapeia a res completa e retorna só os dados
 
       tap((dados: TokenViewModel) => this.LocalStorage.salvarDadosLocalUsuario(dados)),// obter o retorno do map e salva no storage
       

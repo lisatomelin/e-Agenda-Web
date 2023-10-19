@@ -15,7 +15,7 @@ export class TarefasService{
   constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
 
   public inserir(tarefa: FormsTarefaViewModel): Observable<FormsTarefaViewModel> {
-    return this.http.post<any>(this.endpoint, tarefa, this.obterHeadersAutorizacao())
+    return this.http.post<any>(this.endpoint, tarefa)
     .pipe(
       map((res) => res.dados),
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
@@ -23,24 +23,24 @@ export class TarefasService{
 
   public editar(id: string, tarefa: FormsTarefaViewModel){
     return this.http.put<any>(
-      this.endpoint + id, tarefa, this.obterHeadersAutorizacao())
+      this.endpoint + id, tarefa)
       .pipe(map((res) => res.dados),
       catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
   public excluir(id: string): Observable<any>{
-    return this.http.delete(this.endpoint + id, this.obterHeadersAutorizacao())
+    return this.http.delete(this.endpoint + id)
   }
 
 
   public selecionarTodos(): Observable<ListarTarefasViewModel[]> {
-    return this.http.get<any>(this.endpoint, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
   }
 
   public selecionarPorId(id: string): Observable<FormsTarefaViewModel>{
-    return this.http.get<any>(this.endpoint+id, this.obterHeadersAutorizacao())
+    return this.http.get<any>(this.endpoint+id)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
     );
@@ -50,9 +50,7 @@ export class TarefasService{
   {
     return this.http
     .get<any>(
-      this.endpoint + 'visualizacao-completa/' + id, 
-      this.obterHeadersAutorizacao()
-      )
+      this.endpoint + 'visualizacao-completa/' + id)
     .pipe(map((res) => res.dados),
     catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
     
@@ -71,20 +69,6 @@ export class TarefasService{
     else mensagemErro = erro.error?.erros(0);
 
     return throwError(() => new Error(mensagemErro));
-  }
-
-
-  private obterHeadersAutorizacao(){
-    const token = this.LocalStorage.obterDadosLocaisSalvos()?.chave;
-
-    return{
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization:`Bearer ${token}`,
-      }),
-    };
-
-
-  }
-
+  } 
 }
+

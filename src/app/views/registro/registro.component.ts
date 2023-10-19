@@ -30,33 +30,31 @@ export class RegistroComponent implements OnInit{
   campoEstaInvalido(nome: string) {
     return this.form!.get(nome)!.touched && this.form!.get(nome)!.invalid;
   }
-
-  registrar(){
-    if(this.form?.invalid){
-
-      const erros = this.form?.validate();
+  registrar() {
+    if (this.form?.invalid) {
+      const erros = this.form.validate();
 
       for (let erro of erros) this.toastrService.warning(erro);
-      
-      return; 
-      
+
+      return;
     }
 
-    this.authService.registrar(this.form?.value).subscribe( {
+    this.authService.registrar(this.form?.value).subscribe({
       next: (res) => this.processarSucesso(res),
-      error: (err)=> this.processarFalha(err)
+      error: (err) => this.processarFalha(err),
     });
   }
 
-  processarSucesso(res: TokenViewModel){
-    this.toastrService.success('Seja bem-vindo(a), ' + res.usuarioToken.nome + '!', 'Sucesso')
+  processarSucesso(res: TokenViewModel) {
+    this.toastrService.success(
+      'Seja bem-vindo, ' + res.usuarioToken.nome + '!',
+      'Sucesso'
+    );
 
     this.router.navigate(['/dashboard']);
-    
   }
 
-  processarFalha(err: Error){
-    this.toastrService.error(err.message, 'Erro')
+  processarFalha(err: Error) {
+    this.toastrService.error(err.message, 'Erro');
   }
-
 }
