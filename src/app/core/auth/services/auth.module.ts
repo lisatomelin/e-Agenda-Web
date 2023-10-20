@@ -11,6 +11,6 @@ import { LocalStorageService } from './local-storage.service';
     CommonModule
   ],
 
-  providers: [AuthService, LocalStorageService]
+  providers: [AuthService, LocalStorageService],
 })
 export class AuthModule { }

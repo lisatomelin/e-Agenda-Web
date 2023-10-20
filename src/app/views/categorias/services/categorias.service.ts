@@ -12,7 +12,7 @@ export class CategoriasService {
   private endpoint: string =
   'https://e-agenda-web-api.onrender.com/api/categorias/';
 
-  constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
+  constructor(private http: HttpClient, private localStorage: LocalStorageService){}
 
   public inserir(categorias: FormsCategoriasViewModel): Observable<FormsCategoriasViewModel> {
       return this.http.post<any>(this.endpoint, categorias)

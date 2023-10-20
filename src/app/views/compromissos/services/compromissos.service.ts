@@ -12,7 +12,7 @@ export class CompromissosService {
   private endpoint: string =
   'https://e-agenda-web-api.onrender.com/api/compromissos/';
 
-  constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
+  constructor(private http: HttpClient, private localStorage: LocalStorageService){}
 
   public inserir(compromissos: FormsCompromissosViewModel): Observable<FormsCompromissosViewModel> {
       return this.http.post<any>(this.endpoint, compromissos)

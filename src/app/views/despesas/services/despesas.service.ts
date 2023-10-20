@@ -11,7 +11,7 @@ export class DespesasService{
   private endpoint: string = 
   'https://e-agenda-web-api.onrender.com/api/despesas/';
 
-  constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
+  constructor(private http: HttpClient, private localStorage: LocalStorageService){}
 
   public inserir(despesa: FormsDespesasViewModel): Observable<FormsDespesasViewModel> {
     return this.http.post<any>(this.endpoint, despesa)
@@ -35,7 +35,8 @@ export class DespesasService{
   public selecionarTodos(): Observable<ListarDespesaViewModel[]> {
     return this.http.get<any>(this.endpoint)
     .pipe(map((res) => res.dados),
-    catchError((err: HttpErrorResponse) => this.processarErroHttp(err)));
+    catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
+    );
   }
 
   public selecionarPorId(id: string): Observable<FormsDespesasViewModel>{

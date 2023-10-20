@@ -12,7 +12,7 @@ export class TarefasService{
   private endpoint: string =
   'https://e-agenda-web-api.onrender.com/api/tarefas/';
 
-  constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
+  constructor(private http: HttpClient, private localStorage: LocalStorageService){}
 
   public inserir(tarefa: FormsTarefaViewModel): Observable<FormsTarefaViewModel> {
     return this.http.post<any>(this.endpoint, tarefa)

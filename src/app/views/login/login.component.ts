@@ -34,7 +34,7 @@ export class LoginComponent {
 
     if(this.form?.invalid){
 
-      const erros = this.form?.validate();
+      const erros = this.form.validate();
 
       for (let erro of erros) this.toastrService.warning(erro);
       

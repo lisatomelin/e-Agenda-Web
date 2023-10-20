@@ -1,74 +1,100 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, catchError, map, tap, throwError } from "rxjs";
-import { RegistrarUsuarioViewModel } from "../models/registrar-usuario.view-model";
-import { TokenViewModel } from "../models/token.view-model";
-import { LocalStorageService } from "src/app/core/auth/services/local-storage.service";
-import { AutenticarUsuarioViewModel } from "../models/autenticar-usuario.view-model copy";
-import { UsuarioTokenViewModel } from "../models/usuario-token.view-model";
+import { TokenViewModel } from './../models/token.view-model';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  map,
+  tap,
+  throwError,
+} from 'rxjs';
+import { RegistrarUsuarioViewModel } from '../models/registrar-usuario.view-model';
+import { LocalStorageService } from './local-storage.service';
+import { UsuarioTokenViewModel } from '../models/usuario-token.view-model';
+import { AutenticarUsuarioViewModel } from '../models/autenticar-usuario.view-model copy';
 
 @Injectable()
-export class AuthService{
-
-  private endpoint: string =
-  'https://e-agenda-web-api.onrender.com/api/conta/';
+export class AuthService {
+  private endpoint: string = 'https://e-agenda-web-api.onrender.com/api/conta/';
 
   private endpointRegistrar: string = this.endpoint + 'registrar';
   private endpointLogin: string = this.endpoint + 'autenticar';
-  private endpointLogout: string = this.endpoint + 'sair'
+  private endpointLogout: string = this.endpoint + 'sair';
 
-  private usuarioAutenticado: BehaviorSubject<UsuarioTokenViewModel | undefined>;
+  private usuarioAutenticado: BehaviorSubject<
+    UsuarioTokenViewModel | undefined
+  >;
 
-  constructor(private http: HttpClient, private LocalStorage: LocalStorageService)
-  {
+  constructor(
+    private http: HttpClient,
+    private localStorage: LocalStorageService
+  ) {
     this.usuarioAutenticado = new BehaviorSubject<
-    UsuarioTokenViewModel | undefined>(undefined);
+      UsuarioTokenViewModel | undefined
+    >(undefined);
   }
 
-  public obterUsuarioAutenticado(){
+  public obterUsuarioAutenticado() {
     return this.usuarioAutenticado.asObservable();
   }
 
-  public registrar(usuario: RegistrarUsuarioViewModel): Observable<TokenViewModel> {
+  public registrar(
+    usuario: RegistrarUsuarioViewModel
+  ): Observable<TokenViewModel> {
     return this.http.post<any>(this.endpointRegistrar, usuario).pipe(
-      map((res) => res.dados), //mapeia a res completa e retorna só os dados
+      // Mapeio a resposta completa para retornar apenas os dados
+      map((res) => res.dados),
 
-      tap((dados: TokenViewModel) => this.LocalStorage.salvarDadosLocalUsuario(dados)),// obter o retorno do map e salva no storage
-
-         
+      // Obter o retorno do map e salvar no local-storage
+      tap((dados: TokenViewModel) =>
+        this.localStorage.salvarDadosLocaisUsuario(dados)
+      ),
       catchError((err) => this.processarErroHttp(err))
     );
   }
 
-
-  public login(usuario: AutenticarUsuarioViewModel): Observable<TokenViewModel> {
+  public login(
+    usuario: AutenticarUsuarioViewModel
+  ): Observable<TokenViewModel> {
     return this.http.post<any>(this.endpointLogin, usuario).pipe(
-      map((res) => res.dados), //mapeia a res completa e retorna só os dados
+      // Mapeio a resposta completa para retornar apenas os dados
+      map((res) => res.dados),
 
-      tap((dados: TokenViewModel) => this.LocalStorage.salvarDadosLocalUsuario(dados)),// obter o retorno do map e salva no storage
-      
-      tap((dados: TokenViewModel) => this.notificarLogin(dados.usuarioToken)),// notifica os componentes que o usuário realizou o login
-      
+      // Obter o retorno do map e salvar no local-storage
+      tap((dados: TokenViewModel) =>
+        this.localStorage.salvarDadosLocaisUsuario(dados)
+      ),
+
+      // Notifica os componentes que o usuário efetuou login
+      tap((dados: TokenViewModel) => this.notificarLogin(dados.usuarioToken)),
+
       catchError((err) => this.processarErroHttp(err))
     );
   }
 
-  public logout(): Observable<any>{
+  public logout(): Observable<any> {
     return this.http
-    .post<any>(this.endpointLogout, {}, this.obterHeadersAutorizacao())
-    .pipe(
-      tap(() => this.notificarLogout()), 
-      tap(() => this.LocalStorage.limparDadosLocais()));
-
+      .post<any>(this.endpointLogout, {}, this.obterHeadersAutorizacao())
+      .pipe(
+        tap(() => this.notificarLogout()),
+        tap(() => this.localStorage.limparDadosLocais())
+      );
   }
 
   public logarUsuarioSalvo(): void {
-    const dados = this.LocalStorage.obterDadosLocaisSalvos();
+    const dados = this.localStorage.obterDadosLocaisSalvos();
 
-    if(!dados) return;
+    if (!dados) return;
 
+    // Data de expiração do Token
     const tokenEstaValido: boolean = new Date(dados.dataExpiracao) > new Date();
 
+    // Notificar o login
     if (tokenEstaValido) this.notificarLogin(dados.usuarioToken);
   }
 
@@ -76,41 +102,31 @@ export class AuthService{
     this.usuarioAutenticado.next(usuario);
   }
 
-  public notificarLogout(): void {
+  private notificarLogout(): void {
     this.usuarioAutenticado.next(undefined);
   }
 
-  private processarErroHttp(erro: HttpErrorResponse){
+  private processarErroHttp(erro: HttpErrorResponse) {
     let mensagemErro = '';
 
-    if(erro.status == 0)
+    if (erro.status == 0)
       mensagemErro = 'Ocorreu um erro ao processar a requisição.';
-      
-    if(erro.status == 401)
-      mensagemErro = 'O usuário não está autorizado. Efetue o login e tente novamente.';
-
-    else mensagemErro = erro.error?.erros(0);
+    if (erro.status == 401)
+      mensagemErro =
+        'O usuário não está autorizado. Efetue login e tente novamente.';
+    else mensagemErro = erro.error?.erros[0];
 
     return throwError(() => new Error(mensagemErro));
   }
 
-  private obterHeadersAutorizacao(){
-    const token = this.LocalStorage.obterDadosLocaisSalvos()?.chave;
+  private obterHeadersAutorizacao() {
+    const token = this.localStorage.obterDadosLocaisSalvos()?.chave;
 
-    return{
+    return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization:`Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       }),
     };
-
-
   }
-
-  
-
- 
-
-
-
 }

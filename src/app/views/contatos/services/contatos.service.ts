@@ -13,7 +13,7 @@ export class ContatosService {
   private endpoint: string =
   'https://e-agenda-web-api.onrender.com/api/contatos/';
 
-  constructor(private http: HttpClient, private LocalStorage: LocalStorageService){}
+  constructor(private http: HttpClient, private localStorage: LocalStorageService){}
 
   public inserir(contato: FormsContatoViewModel): Observable<FormsContatoViewModel> {
       return this.http
